@@ -1,0 +1,2 @@
+# Añadir versiones concretas cuando se implemente el primer notebook o script.
+# Un ambiente virtual por proyecto; no subirlo al repositorio.

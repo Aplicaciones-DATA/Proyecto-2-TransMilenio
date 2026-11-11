@@ -1,0 +1,19 @@
+# Entorno local y archivos temporales
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# No publicar datos hasta verificar procedencia y licencia.
+datos/raw/*
+!datos/raw/.gitkeep
+datos/procesados/*
+!datos/procesados/.gitkeep
+
+# Resultados generados: se regeneran desde el código.
+outputs/*
+!outputs/.gitkeep
