@@ -20,6 +20,14 @@ Preguntas de apoyo:
 2. ¿Dónde aparece con mayor frecuencia el **efecto racimo** (varios buses juntos y después un intervalo largo sin servicio)?
 3. ¿Coinciden las zonas con peor servicio con las de menores ingresos o mayor dependencia del transporte público?
 
+### Alcance exploratorio en evaluación
+
+La pregunta anterior pertenece a la propuesta aprobada. El primer examen de las fuentes mostró que aún no hay un histórico verificado de paso real de buses y que los `trip_id` de la captura de posiciones no coinciden con los del GTFS descargado. Por eso, antes de cambiar formalmente la pregunta con el profesor, se propone explorar esta alternativa: **¿en qué estaciones troncales y franjas horarias hay más pasajeros registrados en relación con los buses programados, y cómo son las zonas donde se encuentran?**
+
+Para responderla se necesitarán GTFS estático, validaciones de entrada por estación y franja, límites de UPZ y datos sociodemográficos por zona. La comparación sería una señal de presión entre demanda y oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [primer notebook](notebooks/01_exploracion_oferta_programada.ipynb) ya explora rutas y viajes programados; todavía no responde la pregunta completa.
+
+Las descargas locales y sus huellas se documentan en [el registro de descargas](docs/registro_descargas.md). Los archivos diarios y las capturas `.pb` no se publican en este repositorio.
+
 ## Fuentes de datos previstas
 
 | Fuente | Qué responde y contenido esperado | Integración prevista | Límite actual |
