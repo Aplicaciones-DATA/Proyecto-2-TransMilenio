@@ -4,6 +4,18 @@ Proyecto de **Aplicaciones en Ciencia de Datos (DATA-1002)**, Universidad de los
 
 **Equipo:** Emanuel [apellido por completar] y [nombre del segundo integrante por completar]. Los nombres y la distribución definitiva deben confirmarse antes de publicar información personal.
 
+## Acceso al histórico de datos
+
+El repositorio permite encontrar el histórico, pero los archivos grandes se almacenan en la **carpeta compartida del proyecto en Google Drive**:
+
+- [Abrir todos los datos del proyecto](https://drive.google.com/drive/folders/1ZOasXuot0GN8eZCVPzYohVKkKF73UT4z)
+- [GTFS diario](https://drive.google.com/drive/folders/1hMytx7v1RhFU9_6_hH5dFCz4cq79T0ZN): archivos de oferta programada.
+- [Capturas de tiempo real](https://drive.google.com/drive/folders/121V5T0E_hdcwRwBGJb0WFIQGq5BnJxo7): posiciones, actualizaciones de viajes y alertas guardadas por el recolector.
+
+Cada sección se organiza en subcarpetas `AAAA-MM-DD`. Las nuevas capturas aparecen allí tras cada carga correcta del programa; no hace falta actualizar este enlace. Para abrirlas, inicia sesión en Drive con la cuenta a la que se dio acceso. **El enlace es visible públicamente en GitHub, pero los archivos de Drive solo son accesibles para las personas autorizadas**. El permiso de lectura permite consultar y descargar todo el histórico sin modificarlo.
+
+Los archivos `.pb.gz` son capturas Protobuf comprimidas sin pérdida. El repositorio conserva el código y la documentación; no duplica aquí todos los `.pb.gz` ni los ZIP diarios por su volumen. Esta carpeta de Drive contiene el GTFS y las capturas del piloto; las validaciones descargadas por separado todavía no forman parte de ella.
+
 ## Resumen y propósito
 
 El proyecto asesora al comité directivo de TransMilenio para identificar qué troncales y zonas de Bogotá reciben un servicio menos confiable y qué población depende de ellas. Compara lo que ocurrió con lo programado, relaciona los indicadores con el perfil de los hogares y comunica los resultados en un **dashboard** para priorizar flota, control operativo o infraestructura. No se pretende crear una aplicación para pasajeros; la propuesta señala que Google Maps, Moovit y la aplicación oficial ya cumplen esa función.
@@ -22,7 +34,7 @@ Preguntas de apoyo:
 
 ### Alcance exploratorio en evaluación
 
-La pregunta anterior pertenece a la propuesta aprobada. El primer examen de las fuentes mostró que aún no hay un histórico verificado de paso real de buses y que los `trip_id` de la captura de posiciones no coinciden con los del GTFS descargado. Por eso, antes de cambiar formalmente la pregunta con el profesor, se propone explorar esta alternativa: **¿en qué estaciones troncales y franjas horarias hay más pasajeros registrados en relación con los buses programados, y cómo son las zonas donde se encuentran?**
+La pregunta anterior pertenece a la propuesta aprobada. En el primer examen todavía no había un histórico verificado de paso real de buses ni una correspondencia completa entre los `trip_id` de posiciones y del GTFS. Desde entonces se inició un piloto de recolección; su cobertura y calidad aún deben comprobarse. Antes de cambiar formalmente la pregunta con el profesor, se propone explorar esta alternativa: **¿en qué estaciones troncales y franjas horarias hay más pasajeros registrados en relación con los buses programados, y cómo son las zonas donde se encuentran?**
 
 Para responderla se necesitarán GTFS estático, validaciones de entrada por estación y franja, límites de UPZ y datos sociodemográficos por zona. La comparación sería una señal de presión entre demanda y oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [primer notebook](notebooks/01_exploracion_oferta_programada.ipynb) ya explora rutas y viajes programados; todavía no responde la pregunta completa.
 
@@ -36,7 +48,7 @@ Las descargas locales y sus huellas se documentan en [el registro de descargas](
 | GTFS estático de TransMilenio | **Qué debía pasar:** rutas, paradas con coordenadas y frecuencias programadas | Ruta, viaje y parada | Puede no recoger cambios recientes por obras. |
 | Encuesta Multipropósito 2021 de la Secretaría Distrital de Planeación y límites de UPZ | **A quién le pasa:** estrato, ingreso y características de los hogares por zona | Coordenadas de paradas asignadas a UPZ o localidad | La encuesta es de 2021 y se basa en una muestra. |
 
-La propuesta prioriza los **históricos de Datos Abiertos Bogotá** y descarta construir una recolección propia en tiempo real: el tiempo disponible no alcanza y no se encontró un acceso público activo al feed en tiempo real. La integración propuesta compara operación real y programada por ruta, estación o troncal; después ubica las paradas en su UPZ mediante coordenadas y añade el perfil socioeconómico de esa zona.
+La propuesta original priorizaba los **históricos de Datos Abiertos Bogotá** y descartaba una recolección propia. Después, el equipo inició un piloto de capturas GTFS-Realtime en franjas horarias; sus archivos se guardan en la carpeta de Drive enlazada arriba. Esto no demuestra todavía puntualidad ni modifica por sí solo la pregunta final pendiente de acordar con el profesor. La integración prevista compara fuentes disponibles por ruta, estación o troncal; después ubica las paradas en su UPZ mediante coordenadas y añade el perfil socioeconómico de esa zona.
 
 **Pendiente antes de fijar la integración:** descargar las tres fuentes, comprobar campos, unidades de análisis, periodos, cobertura, llaves de unión y licencias. Todavía no se afirma que las uniones sean posibles con el nivel de detalle disponible. La procedencia y la licencia verificadas se registrarán en [docs/fuentes.md](docs/fuentes.md).
 
