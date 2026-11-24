@@ -8,6 +8,12 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Configuración personal y credenciales de Drive.
+config/captura_local.json
+**/*client_secret*.json
+**/*credentials*.json
+**/*drive_token.json
+
 # No publicar datos hasta verificar procedencia y licencia.
 datos/raw/*
 !datos/raw/.gitkeep

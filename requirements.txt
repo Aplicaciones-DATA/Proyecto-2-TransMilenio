@@ -1,3 +1,7 @@
-# Dependencias del primer notebook. Fijar versiones antes de la entrega final.
+# Dependencias de los notebooks. Fijar versiones antes de la entrega final.
 pandas
 ipykernel
+matplotlib
+google-api-python-client
+google-auth-oauthlib
+tzdata
