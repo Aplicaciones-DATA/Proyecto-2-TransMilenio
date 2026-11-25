@@ -1,0 +1,14 @@
+# Manifiesto de datos originales
+
+Esta carpeta documenta los insumos crudos, pero **no almacena los ZIP ni los microdatos en el repositorio público**. No se modifica ningún original: los scripts leen copias externas y escriben resultados derivados en `datos/procesados/` o agregados pequeños en `datos/analisis/`. La exclusión se mantiene en `.gitignore` por tamaño, privacidad y permisos de redistribución aún por verificar.
+
+| Insumo | Dónde está el original | Para qué se usa |
+| --- | --- | --- |
+| Validaciones troncales diarias | [Portal oficial](https://validaciones.datosabiertos.transmilenio.gov.co/ValidacionTroncal.html); copia local `../registros_diarios/AAAA-MM-DD/validacionTroncalAAAAMMDD.zip` | Entradas registradas por fecha, estación y hora; no personas únicas. |
+| GTFS estático diario | [Portal oficial](https://gtfs.transmilenio.gov.co/), [carpeta privada en Drive](https://drive.google.com/drive/folders/1hMytx7v1RhFU9_6_hH5dFCz4cq79T0ZN); copia local `../registros_diarios/AAAA-MM-DD/` | Pasos **programados**, no llegadas reales. Cada día debe emparejarse con validaciones de la misma fecha. El ZIP local del 18/11 se llama `GTFS (1).zip`; los nombres de los demás están en el inventario. |
+| GTFS-Realtime del piloto | [Carpeta privada en Drive](https://drive.google.com/drive/folders/121V5T0E_hdcwRwBGJb0WFIQGq5BnJxo7) y algunas copias puntuales locales | Capturas `positions`, `tripupdates` y `alerts`; **fuera** de los indicadores y conclusiones del tablero actual. |
+| Encuesta Multipropósito 2021 y límites de localidades | Fuentes públicas y archivos locales detallados en [fuentes socioeconómicas](../../docs/fuentes_socioeconomicas.md) | Contexto agregado de residentes por localidad; no identifica a los pasajeros de las estaciones. |
+
+La comparación presentada cubre **18–23 de noviembre de 2026**. Para el 24 había GTFS, pero ninguna validación oficial incorporada al último chequeo de la fuente; no se mezcló con los seis días comparables. El tablero compartido usa el **CSV detallado corregido del 18 de Alejandro**, ubicado fuera del repositorio en `../data_casi_lista/Comparacion_TransMilenio_2026-11-18_con_localidades.csv`. El ZIP GTFS exacto y la regla que produjeron sus 248.283 pasos comparables **siguen sin documentarse plenamente**; el cruce local con el ZIP inventariado del 18 genera 235.072. Por eso el tablero aún no es exactamente reproducible desde los originales inventariados.
+
+La subcarpeta local `datos/raw/gtfs/` contiene algunos `.txt` extraídos de un GTFS del 16/11, pero no el archivo `stop_times.txt` ni la serie 18–23. **No es el insumo del tablero** y no debe confundirse con los ZIP diarios íntegros. El histórico completo y sus huellas SHA-256 están en el [registro de descargas](../../docs/registro_descargas.md); procedencia, licencia y cobertura en [fuentes](../../docs/fuentes.md); decisiones de limpieza en la [bitácora](../../docs/bitacora_limpieza.md).

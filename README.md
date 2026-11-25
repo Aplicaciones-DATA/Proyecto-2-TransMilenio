@@ -4,7 +4,7 @@ Hicimos este proyecto para **Aplicaciones en Ciencia de Datos (DATA-1002)** en l
 
 **Equipo:** Chiudacchang Collazos Trujillo y Alejandro Rojas.
 
-**Estado al 24/11/2026:** Alejandro publicó la integración corregida de los días 18–23 en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [borrador de ocho páginas en Power BI](docs/tablero_powerbi_2026-11-24.md) se actualizó con el cruce corregido del 18 y las franjas propuestas. El [paquete más reciente en Drive](https://drive.google.com/file/d/1uATsLaI8TT9PX5-JWtruiwCs9yBfE2IM/view?usp=drivesdk) incluye el `.pbix` corregido y seis CSV derivados. Alejandro también tiene permiso de editor sobre el [PBIX individual](https://drive.google.com/file/d/19VzJ5pWkxH7cgR9f6f4pnA8jUefL7r7m/view?usp=drivesdk); Power BI Desktop no permite coedición simultánea del archivo. Faltan filtros/KPI finales, confirmar la versión exacta de GTFS usada para el 18 y la entrega oficial. Los ZIP originales no están en GitHub. La actividad seguía **No enviado** y con 0 archivos a las 23:18 en Bloque Neón.
+**Estado al 25/11/2026:** Alejandro publicó la integración corregida de los días **18–23 de noviembre** en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [PBIX de ocho páginas compartido en Drive](docs/tablero_powerbi_2026-11-24.md) usa ese cruce; el [paquete compartido](https://drive.google.com/file/d/1uATsLaI8TT9PX5-JWtruiwCs9yBfE2IM/view?usp=drivesdk) contiene ese PBIX y seis CSV derivados. Alejandro tiene permiso de editor sobre el [PBIX individual](https://drive.google.com/file/d/19VzJ5pWkxH7cgR9f6f4pnA8jUefL7r7m/view?usp=drivesdk), pero Power BI Desktop no permite coedición simultánea. Después del envío se creó una **[copia local de trabajo de nueve páginas](docs/tablero_powerbi_postentrega_2026-11-25.md)**, `outputs/TransMilenio_postentrega_2026-11-25_filtros.pbix`, con filtros y tarjetas de indicadores; aún no está compartida ni sustituye el archivo entregado. Alejandro envió la actividad en Bloque Neón el **24/11 a las 23:58**, antes del cierre de las 23:59 (recibo 5080470). Sigue pendiente verificar el ZIP GTFS y la regla que produjeron el denominador corregido del 18. Los originales no están en GitHub.
 
 ## Acceso al histórico de datos
 
@@ -16,7 +16,7 @@ Guardamos los archivos grandes en la carpeta compartida de Google Drive. Desde a
 
 Organizamos los archivos por fecha en carpetas `AAAA-MM-DD`. Cada vez que el recolector termina una carga, las capturas quedan en la carpeta del día. Para consultar o descargar los archivos hace falta tener acceso al Drive compartido.
 
-En Drive dejamos el GTFS y las capturas del piloto en formato `.pb.gz`. Descargamos las validaciones por separado. En el repositorio dejamos el código y la documentación para mantener liviana la descarga.
+En Drive dejamos el GTFS diario y las capturas `.pb.gz` del piloto; descargamos las validaciones por separado. El [manifiesto de `datos/raw`](datos/raw/README.md) explica dónde están esos originales y cómo se usan sin publicarlos en GitHub. Aquí conservamos código, documentación y pequeños agregados para mantener liviana la descarga.
 
 ## Resumen y propósito
 
@@ -30,7 +30,7 @@ Nos interesa el tema porque las demoras y los intervalos irregulares afectan la 
 
 > **Pregunta de contexto.** ¿Qué características sociales y de movilidad tienen las localidades donde se ubican esas estaciones?
 
-Para la primera pregunta contamos todas las entradas registradas, cualquiera que sea el motivo del viaje. Con «buses que deberían pasar» nos referimos a los pasos programados en el GTFS. Antes de comparar pico y valle, vamos a fijar los rangos y a asignar las observaciones según la hora.
+Para la primera pregunta contamos todas las entradas registradas, cualquiera que sea el motivo del viaje. Con «buses que deberían pasar» nos referimos a los pasos programados en el GTFS. Para el análisis actual usamos rangos **provisionales** de pico y valle y asignamos cada registro según la hora; el equipo aún debe confirmar esos rangos.
 
 Para la segunda usamos la [Encuesta Multipropósito 2021](https://datosabiertos.bogota.gov.co/dataset/encuesta-multiproposito-2021-sdp) como contexto de las localidades. Nos interesan los ingresos, las condiciones de los hogares y la movilidad. Si presentamos desplazamientos al trabajo y al estudio, mostramos cada grupo por separado y dejamos claros la población, los pesos y el denominador. Las cifras de la encuesta describen a los residentes de las localidades.
 
@@ -64,7 +64,7 @@ Las descargas locales y sus huellas se documentan en [el registro de descargas](
 
 Conservamos las capturas GTFS-Realtime del piloto en Drive. Describimos las fuentes y sus límites en [docs/fuentes.md](docs/fuentes.md).
 
-Los originales están fuera de Git. La [auditoría de cobertura](docs/auditoria_cobertura_estaciones_2026-11-24.md) explica las estaciones sin localidad y las entradas sin paso comparable; las cifras del tablero previo deben recalcularse con la corrección del 18.
+Los originales están fuera de Git. La [auditoría de cobertura](docs/auditoria_cobertura_estaciones_2026-11-24.md) explica las estaciones sin localidad y las entradas sin paso comparable. La tabla usada por el tablero se recalculó con el CSV corregido del 18 aportado por Alejandro; **todavía no podemos reproducir exactamente sus pasos desde un ZIP GTFS y una regla documentados**. De 151 estaciones de la tabla integrada, 133 tienen localidad; el mapa territorial muestra 18 localidades, no toda la red.
 
 ## Indicadores del tablero actual y límites
 
@@ -84,15 +84,15 @@ Cumplimiento real, regularidad, efecto racimo y velocidad son preguntas de la **
 2. Revisamos qué mide cada fuente, qué fechas cubre y cómo podemos cruzarla con las demás.
 3. Preparamos las bases y comprobamos cuántas filas coinciden. Registramos las decisiones en la [bitácora de limpieza](docs/bitacora_limpieza.md).
 4. Comparamos los resultados por estación y hora para preparar las visualizaciones.
-5. En el dashboard queremos presentar los hallazgos junto con sus límites.
+5. En el dashboard presentamos las comparaciones junto con sus límites.
 
 ### Cruce verificado
 
 Agrupamos los registros por fecha, estación y hora. Para calcular el indicador usamos las filas en las que encontramos la estación en el GTFS y había pasos programados. Si agrupamos varias estaciones u horas, dividimos el total de validaciones comparables por el total de pasos programados de esas mismas filas.
 
-Del **18 al 23 de noviembre de 2026** pudimos cruzar **8.065.892 de 9.205.097 validaciones (87,62 %)**. Ubicamos **128 de las 132 estaciones comparables** dentro de Bogotá y cruzamos esas localidades con los indicadores de la Encuesta Multipropósito 2021. Para el **24 de noviembre** tenemos los pasos programados y todavía nos falta incorporar las validaciones.
+Del **18 al 23 de noviembre de 2026** pudimos cruzar **8.065.892 de 9.205.097 validaciones (87,62 %)**. Ubicamos **128 de las 132 estaciones comparables** dentro de Bogotá y cruzamos esas localidades con los indicadores de la Encuesta Multipropósito 2021. Para el **24 de noviembre** tenemos los pasos programados, pero no validaciones oficiales incorporadas; no lo mezclamos con los seis días comparables.
 
-Para repetir el cruce, guardamos los dos ZIP de cada fecha en `registros_diarios/AAAA-MM-DD/`, al lado del repositorio. Con las dependencias instaladas, ejecutamos este comando en PowerShell desde la raíz del proyecto. El ejemplo usa los archivos del 18 y guarda el resultado en `datos/procesados/`.
+Para generar un cruce local, guardamos los dos ZIP de cada fecha en `registros_diarios/AAAA-MM-DD/`, al lado del repositorio. Con las dependencias instaladas, ejecutamos este comando en PowerShell desde la raíz del proyecto. El ejemplo usa los archivos del 18 y guarda el resultado en `datos/procesados/`. **Advertencia:** con el ZIP inventariado del 18 esta salida no reproduce el denominador corregido que usa el tablero; los detalles están en [resultados](docs/resultados.md).
 
 ```powershell
 py .\src\comparar_validaciones_gtfs.py 2026-11-18
@@ -106,16 +106,16 @@ py .\src\comparar_validaciones_gtfs.py 2026-11-18
 
 En [resultados y reproducción](docs/resultados.md) dejamos las franjas, las fuentes, el comando de integración y el recorrido sugerido para la demostración. Los [resúmenes agregados](datos/analisis/) permiten revisar las cifras.
 
-## Entregables previstos
+## Entregables y estado
 
 | Entregable | Contenido |
 |---|---|
-| **Repositorio público** | Código completo, organización reproducible, procedencia y licencia de cada fuente. |
+| **Repositorio público** | Código, organización de carpetas, procedencia y límites conocidos de reproducción y licencia de cada fuente. |
 | **Dashboard operativo** | Pregunta, indicadores, comparaciones, hallazgos y al menos una limitación importante. Debe alimentarse de datos integrados y estar accesible durante la sustentación. |
 | **Presentación ejecutiva (máximo 10 minutos)** | Problema, relevancia, pregunta, fuentes, integración, preparación, demostración del dashboard, hallazgos, conclusiones y recomendaciones. |
 | **Sustentación** | Explicar de dónde salen los datos, cómo se unieron y qué decisiones de limpieza se tomaron. La propuesta la sitúa en la primera clase de la última semana del semestre. |
 
-Bloque Neón fue revisado de nuevo el 24/11 a las 23:18: la actividad **Group 7: Proyecto 2** cierra el **24/11/2026 a las 23:59**, seguía como **No enviado** y con **0 archivos**; pedía cargar archivos y después pulsar **Enviar**. El equipo se fijó las 23:00 como meta interna. Este repositorio, por sí solo, no constituye la entrega. [Observación directa en la actividad de Bloque Neón, `db=485930`; memoria académica: `src-bloque-neon-data-proyecto-2-2026-11-23`]
+La actividad **Group 7: Proyecto 2** cerró el **24/11/2026 a las 23:59**. El historial de Bloque Neón registra el envío de Alejandro a las **23:58** (recibo **5080470**) con un ZIP y enlaces al repositorio, al PBIX y a la presentación. Ese comprobante acredita el envío, no la revisión o calificación del profesor ni que la copia local posterior de nueve páginas formara parte de la entrega. [Memoria académica: `src-bloque-neon-proyecto2-recibo-5080470-2026-11-24`]
 
 ## Equipo y trabajo actual
 
@@ -145,10 +145,10 @@ La tabla registra los aportes observados; no afirma que el proyecto esté termin
 
 ## Plan de trabajo
 
-1. Revisar las fuentes y dejar claras las fechas, licencias y llaves de unión.
-2. Revisar el cruce de localidad y agregar fechas cuando tengamos los insumos completos.
-3. Confirmar las franjas de pico y valle y actualizar el dashboard.
-4. Elegir los hallazgos que vamos a mostrar y ensayar la presentación.
+1. Documentar con Alejandro el ZIP GTFS exacto y la regla que generaron los pasos del 18/11.
+2. Confirmar con el profesor el alcance descriptivo de la pregunta y con el equipo las franjas provisionales.
+3. Cerrar y verificar la copia local del tablero; mantener el 24/11 fuera de la comparación hasta contar con validaciones oficiales del mismo día.
+4. Revisar juntos los hallazgos del tablero antes de cerrar conclusiones y diapositivas.
 
 ## Organización del repositorio
 
@@ -156,13 +156,14 @@ La tabla registra los aportes observados; no afirma que el proyecto esté termin
 .
 ├── README.md                 # Propósito, metodología, alcance y estado
 ├── .gitignore                # Entornos, cachés y datos no autorizados para publicación
-├── requirements.txt          # Dependencias Python, por fijar al empezar el código
+├── requirements.txt          # Dependencias Python usadas por scripts y notebooks
 ├── datos/
-│   ├── raw/                  # Copias inmutables de fuentes, si su licencia permite publicarlas
-│   └── procesados/           # Resultados derivados y documentados
+│   ├── raw/                  # Manifiesto público; originales privados o externos, sin alterar
+│   ├── procesados/           # Resultados intermedios locales, excluidos de Git
+│   └── analisis/             # Cuatro agregados pequeños del análisis corregido
 ├── notebooks/                # Exploración y análisis reproducible
 ├── src/                      # Funciones o scripts reutilizables
-├── outputs/                  # Tablas, figuras y archivos generados
+├── outputs/                  # PBIX, paquetes y figuras locales, excluidos de Git
 ├── reports/                  # Presentación y materiales de comunicación
 └── docs/
     ├── fuentes.md            # Procedencia, cobertura, licencia y llaves

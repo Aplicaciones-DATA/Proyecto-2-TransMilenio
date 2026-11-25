@@ -17,6 +17,7 @@ config/captura_local.json
 # No publicar datos hasta verificar procedencia y licencia.
 datos/raw/*
 !datos/raw/.gitkeep
+!datos/raw/README.md
 datos/procesados/*
 !datos/procesados/.gitkeep
 
