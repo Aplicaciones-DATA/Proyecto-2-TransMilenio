@@ -1,0 +1,18 @@
+# Conclusiones y recomendaciones para revisión del equipo
+
+**Borrador, no cierre definitivo.** El 18/11 existe una diferencia de conteo de pasos programados entre nuestro cálculo y el archivo de Alejandro. Por ello, todas las razones `entradas / pasos` son provisionales hasta que se confirme la versión GTFS y la regla de conteo. Estas observaciones describen el 18–23 de noviembre de 2026; no se generalizan a toda la ciudad ni a otros meses. [Auditorías en `tests/comparar_versiones_gtfs_18.py`, `tests/validar_tablas_powerbi.py` y `reports/hallazgos_preliminares_2026-11-24.md`]
+
+## Hallazgos descriptivos
+
+1. En los **cuatro días hábiles observados**, las franjas etiquetadas pico tienen **7,38 entradas por paso programado** frente a **6,83** en valle. En los **dos días de fin de semana**, la comparación es **5,39** en las mismas horas etiquetadas pico y **5,76** en valle. Son cocientes de sumas en estación-hora emparejadas, no promedios de razones individuales, ocupación ni medida de puntualidad. Las ventanas pico/valle son provisionales. [Tabla integrada; `tests/validar_tablas_powerbi.py`]
+2. En entradas totales del periodo, **Portal Norte (354.405), Portal Américas (337.220) y Portal Suba (283.457)** aparecen entre las estaciones con mayor volumen. Este orden sirve para escoger sitios donde investigar, pero por sí solo no indica insuficiencia de oferta: no está normalizado por pasos ni por capacidad de buses. [Tabla integrada; `reports/hallazgos_preliminares_2026-11-24.md`]
+3. **8.065.892 de 9.205.097 entradas** (87,62 %) tienen paso programado emparejado con el cálculo actual. Las **1.139.205 restantes** quedan fuera de la razón; su falta de emparejamiento no equivale a cero buses. El mapa requiere coordenadas y el resumen socioeconómico describe residentes de 2021, no pasajeros de 2026. [Prueba `tests/validar_tablas_powerbi.py`; `docs/auditoria_cobertura_estaciones_2026-11-24.md`; `docs/tablero_powerbi_2026-11-24.md`]
+
+## Recomendaciones prudentes
+
+- **Antes de interpretar la razón como indicador estable**, confirmar con Alejandro qué ZIP GTFS usó para el 18/11 y si contó pasos de servicios duales. Recalcular ambos métodos con la misma versión y misma definición. Si no se alcanza a conciliar antes de entregar, conservar la etiqueta de resultado provisional en tablero y presentación. [Prueba `tests/comparar_versiones_gtfs_18.py`]
+- **Investigar primero los emparejamientos faltantes** en Cabecera Usme, Corral Portal Dorado y estaciones temporales, y registrar su causa. Cabecera Usme tiene 253.175 entradas en el periodo, pero no pasos comparables ni coordenadas en la tabla principal; no debe desaparecer sin nota del mapa y no se puede concluir que no tenga servicio. [Auditoría `docs/auditoria_cobertura_estaciones_2026-11-24.md`]
+- **Usar las franjas y portales destacados como prioridad de revisión operativa**, no como veredicto de mal servicio. Para pasar de oferta programada a cumplimiento real haría falta validar el histórico GPS, la continuidad de posiciones y la unión con viajes GTFS; esa etapa puede quedar como trabajo futuro. [Propuesta original; `docs/plan_trabajo.md`]
+- **Conservar separadas las fuentes sociales**: mostrar la Encuesta Multipropósito como contexto territorial agregado, evitando atribuir pobreza o motivo de viaje a las personas que validaron en una estación. [Encuesta Multipropósito 2021; `docs/fuentes_socioeconomicas.md`]
+
+**Frase final sugerida:** «El tablero ya muestra diferencias descriptivas entre entradas y oferta programada por hora, tipo de día y estación. Para recomendar cambios de servicio necesitamos primero conciliar el horario usado y comprobar mejor los datos que hoy no se emparejan».

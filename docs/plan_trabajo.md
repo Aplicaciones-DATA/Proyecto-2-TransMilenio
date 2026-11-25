@@ -1,14 +1,22 @@
 # Plan de trabajo — Proyecto 2 TransMilenio
 
+## Estado operativo al 24/11/2026, 21:35 (Bogotá)
+
+La pregunta funcional acordada por el equipo es: **¿cómo varían las entradas registradas frente a los pasos programados entre pico/valle, días hábiles/fines de semana y estaciones de los días comparables, y qué contexto muestran las localidades de esas estaciones?** Esta es una comparación descriptiva de oferta programada y demanda registrada, no de confiabilidad real. El cambio formal de la pregunta original sigue por confirmar con el profesor. [Propuesta original; indicación del usuario; `docs/tablero_powerbi_2026-11-24.md`]
+
+Se procesaron GTFS y validaciones del 19–23 de noviembre, además del piloto 16/18. Hay un `.pbix` **local** con ocho páginas, incluida una nota visible de método y límites, y un ranking reproducible de 132 estaciones en seis fechas comparables (18–23). El 24/11 tiene GTFS y capturas GTFS-RT en Drive, pero sus validaciones oficiales no figuraban en el portal al consultar hacia las 21:20, así que todavía no se añaden al cociente. La auditoría automatizada verificó 26.060 claves únicas y 87,62 % de cobertura de entradas en 18–23. [ZIP originales en `../registros_diarios/`; `src/comparar_validaciones_gtfs.py`; `tests/validar_tablas_powerbi.py`; `docs/tablero_powerbi_2026-11-24.md`; portal oficial]
+
+**Prioridad antes de entregar:** (1) conciliar con Alejandro la diferencia de pasos; (2) revisar visualmente cifras y filtros del `.pbix` y añadir KPI acordados; (3) revisar el borrador de hallazgos y ensayar la presentación de máximo 10 minutos; (4) hacer que Alejandro pueda abrir el tablero y luego verificar los enlaces/mecanismo oficial de entrega. Publicar o entregar requiere autorización inmediata del estudiante. El objetivo interno es 23:00; Bloque Neón indica 23:59. [Auditoría local; `src-bloque-neon-data-proyecto-2-2026-11-23`]
+
 ## Pregunta que sí podemos responder ahora
 
-**¿En qué estaciones troncales y horas se registran más entradas durante los días disponibles?** Se responde con las validaciones diarias. La unidad es la validación, no el pasajero único. El notebook `02_demanda_observada_estaciones.ipynb` procesa los ZIP por bloques y genera una tabla por fecha, hora y estación.
+**¿En qué estaciones troncales y horas se registran más entradas durante los días disponibles?** Esta primera subpregunta se responde con las validaciones diarias. La unidad es la validación, no el pasajero único. La comparación posterior con oferta programada usa solo los días emparejados, como indica la sección anterior. El notebook `02_demanda_observada_estaciones.ipynb` procesa los ZIP por bloques y genera una tabla por fecha, hora y estación.
 
 ## Preguntas para la siguiente etapa
 
 1. **¿Cuántos viajes se programan por ruta, estación y franja en una fecha concreta?** Requiere `calendar.txt`, `calendar_dates.txt` y `stop_times.txt` de una versión GTFS compatible con esa fecha.
-2. **¿Dónde coinciden alta demanda registrada y menor oferta programada?** Ya hay un cruce piloto para el 16 y el 18 de noviembre, con cerca del 88 % de las validaciones comparables en cada día. Falta auditar las estaciones no emparejadas y ampliar fechas. Es una señal de presión sobre la oferta, **no ocupación real**.
-3. **¿Cómo cambian los patrones entre días y franjas?** Requiere suficientes días comparables y verificar que cada ZIP cubra el día completo.
+2. **¿Dónde coinciden alta demanda registrada y menor oferta programada?** Ya hay cruces para el 16 y el 18–23 de noviembre. Sigue pendiente auditar las estaciones no emparejadas y conciliar dos formas de contar pasos. Es una señal de relación entre entradas y oferta programada, **no ocupación real**.
+3. **¿Cómo cambian los patrones entre días y franjas?** El borrador compara pico/valle y días hábiles/fines de semana sobre las fechas disponibles; antes de generalizar se debe revisar cobertura y que cada ZIP cubra el día completo.
 4. **Piloto opcional: ¿qué buses aparecen en las capturas y qué rutas reportan?** Requiere decodificar `positions.pb`, guardar varias capturas con fecha y hora, medir cobertura y revisar si sus identificadores coinciden con el GTFS. No bloquea el cruce principal ni equivale todavía a medir puntualidad.
 
 La pregunta de la propuesta sobre **confiabilidad real y efecto racimo** queda pendiente de validación con el profesor: las validaciones de pasajeros no indican cuándo pasó cada bus. No se inferirá racismo ni afectación de un grupo a partir de promedios por zona.
@@ -23,13 +31,19 @@ La pregunta de la propuesta sobre **confiabilidad real y efecto racimo** queda p
 - [ ] Confirmar con el profesor la pregunta final y el alcance de la comparación oferta-demanda.
 - [x] Obtener GTFS y validaciones oficiales para el 16 y el 18 de noviembre, guardados por fecha sin alterar originales.
 - [x] Procesar `calendar.txt`, `calendar_dates.txt` y `stop_times.txt` por partes para oferta por fecha, estación y hora en esos dos días.
-- [ ] Crear y verificar tabla de correspondencia de estaciones; registrar las no emparejadas.
+- [x] Auditar la correspondencia de estaciones: 133 de 151 tienen localidad asignada; las otras 18 están identificadas y clasificadas en `docs/auditoria_cobertura_estaciones_2026-11-24.md`. La tabla de Alejandro se incorporó sin alterar los conteos previos. Aún no se han resuelto las ausencias de origen.
 - [x] Integrar oferta programada y demanda observada solo en filas con fechas y estaciones comparables; resultados piloto e informe en `reports/informe_alejandro_cruce_fechas.md`.
+- [x] Descargar y verificar GTFS y validaciones del 19–23/11; generar los cinco cruces diarios por estación-hora, sin alterar los ZIP.
+- [x] Crear agregados de Power BI por estación-hora, localidad y ranking; guardar el `.pbix` local de ocho páginas. Ver `docs/tablero_powerbi_2026-11-24.md`.
+- [x] Ejecutar controles automatizados de claves, cobertura y sumas en `tests/validar_tablas_powerbi.py`; redactar borrador de hallazgos en `reports/hallazgos_preliminares_2026-11-24.md`.
+- [x] Preparar un paquete local actualizado con `src/empaquetar_tablero.py`: `.pbix`, seis CSV, guía y notas. Se verifica su integridad; todavía no se ha compartido.
+- [ ] Conciliar el denominador GTFS del 18/11: el archivo de Alejandro y el cálculo previo difieren en 1.117 claves estación-hora. Una prueba encontró 93,07 % de coincidencias al usar el GTFS del 20–22 en vez del ZIP del 18, pero falta confirmación de la fuente que él utilizó.
 - [ ] Solo si se adopta el piloto GPS: revisar cobertura, sesgos y límites de las capturas `.pb` antes de añadir indicadores operativos.
-- [ ] Si se usa contexto socioeconómico, elegir fuente, año y geografía adecuados; documentar que es información agregada y no de pasajeros individuales.
-- [ ] Construir dashboard con pregunta, fuentes, filtros, indicadores válidos y advertencias.
-- [ ] Redactar conclusiones y recomendaciones acordes con lo que muestran los datos, sin afirmar causalidad.
-- [ ] Preparar presentación de máximo 10 minutos y ensayar la explicación de fuentes, limpieza y cruces.
-- [ ] Verificar con Bloque Neón/profesor la fecha y el mecanismo oficial de entrega; publicar los enlaces finales a tiempo.
+- [x] Elegir Encuesta Multipropósito 2021 por localidad, agregarla y documentar que describe residentes, no pasajeros individuales. Falta revisar la interpretación final de sus comparaciones.
+- [ ] Terminar dashboard: ya contiene pregunta, visualizaciones y una página de advertencias, pero faltan filtros interactivos, KPI finales, conciliación del denominador y alinear/rotular los periodos distintos de las dos curvas iniciales.
+- [x] Redactar un borrador de conclusiones y recomendaciones descriptivas en `reports/conclusiones_provisionales_2026-11-24.md`, sin afirmar causalidad. Falta discusión y aprobación del equipo antes de llamarlas definitivas.
+- [ ] Revisar el borrador de presentación de ocho diapositivas y ensayar la explicación de fuentes, limpieza y cruces; guion en `reports/guion_presentacion_2026-11-24.md`.
+- [x] Verificar en Bloque Neón fecha y mecanismo: actividad `Group 7: Proyecto 2`, vence 24/11/2026 a las 23:59, admite archivos y exige pulsar **Enviar** después de cargarlos. A las 22:25 figuraba **No enviado** y con 0 archivos. [Observación directa en Bloque Neón, `db=485930`, 24/11/2026]
+- [ ] Publicar los materiales finales autorizados, revisar la entrega con el equipo y enviarla en Bloque Neón antes del cierre. La actividad sigue pendiente hasta ver un comprobante de envío.
 
 Los datos crudos permanecen fuera de Git según `.gitignore`; cada integrante necesita acceso local a las fuentes o a una copia compartida autorizada.
