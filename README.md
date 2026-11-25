@@ -4,7 +4,7 @@ Hicimos este proyecto para **Aplicaciones en Ciencia de Datos (DATA-1002)** en l
 
 **Equipo:** Chiudacchang Collazos Trujillo y Alejandro Rojas.
 
-**Estado al 24/11/2026:** Alejandro publicó la integración corregida de los días 18–23 en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [borrador de ocho páginas en Power BI](docs/tablero_powerbi_2026-11-24.md) se actualizó con el cruce corregido del 18 y las franjas propuestas; el [paquete actualizado en el Drive compartido](https://drive.google.com/file/d/17RHHqiY2NE5UV9I8rZgRZhpfS4JC_b7B/view?usp=drivesdk) incluye únicamente el `.pbix` y seis CSV derivados. Faltan confirmar la versión exacta de GTFS usada para el 18 y la entrega oficial. Los ZIP originales no están en GitHub. La actividad seguía **No enviado** al último chequeo de Bloque Neón.
+**Estado al 24/11/2026:** Alejandro publicó la integración corregida de los días 18–23 en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [borrador de ocho páginas en Power BI](docs/tablero_powerbi_2026-11-24.md) se actualizó con el cruce corregido del 18 y las franjas propuestas; sus ocho páginas se inspeccionaron mediante una exportación a PDF. El [paquete actualizado en el Drive compartido](https://drive.google.com/file/d/17RHHqiY2NE5UV9I8rZgRZhpfS4JC_b7B/view?usp=drivesdk) incluye únicamente el `.pbix` y seis CSV derivados. Faltan filtros/KPI finales, confirmar la versión exacta de GTFS usada para el 18 y la entrega oficial. Los ZIP originales no están en GitHub. La actividad seguía **No enviado** y con 0 archivos a las 23:18 en Bloque Neón.
 
 ## Acceso al histórico de datos
 
@@ -115,7 +115,7 @@ En [resultados y reproducción](docs/resultados.md) dejamos las franjas, las fue
 | **Presentación ejecutiva (máximo 10 minutos)** | Problema, relevancia, pregunta, fuentes, integración, preparación, demostración del dashboard, hallazgos, conclusiones y recomendaciones. |
 | **Sustentación** | Explicar de dónde salen los datos, cómo se unieron y qué decisiones de limpieza se tomaron. La propuesta la sitúa en la primera clase de la última semana del semestre. |
 
-Bloque Neón fue revisado de nuevo el 24/11 hacia las 22:25: la actividad **Group 7: Proyecto 2** cierra el **24/11/2026 a las 23:59**, seguía como **No enviado** y pedía cargar archivos y después pulsar **Enviar**. El equipo se fijó las 23:00 como meta interna. Este repositorio, por sí solo, no constituye la entrega. [Observación directa en la actividad de Bloque Neón, `db=485930`; memoria académica: `src-bloque-neon-data-proyecto-2-2026-11-23`]
+Bloque Neón fue revisado de nuevo el 24/11 a las 23:18: la actividad **Group 7: Proyecto 2** cierra el **24/11/2026 a las 23:59**, seguía como **No enviado** y con **0 archivos**; pedía cargar archivos y después pulsar **Enviar**. El equipo se fijó las 23:00 como meta interna. Este repositorio, por sí solo, no constituye la entrega. [Observación directa en la actividad de Bloque Neón, `db=485930`; memoria académica: `src-bloque-neon-data-proyecto-2-2026-11-23`]
 
 ## Equipo y trabajo actual
 
