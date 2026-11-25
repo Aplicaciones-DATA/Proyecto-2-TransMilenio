@@ -4,7 +4,7 @@ Hicimos este proyecto para **Aplicaciones en Ciencia de Datos (DATA-1002)** en l
 
 **Equipo:** Chiudacchang Collazos Trujillo y Alejandro Rojas.
 
-**Estado al 24/11/2026:** Alejandro publicó la integración corregida de los días 18–23 en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [borrador de ocho páginas en Power BI](docs/tablero_powerbi_2026-11-24.md) se actualizó con el cruce corregido del 18 y las franjas propuestas; el [paquete actualizado en el Drive compartido](https://drive.google.com/file/d/1sKBndxAW6I9ukgMaYLf1tdSyqefgRmoD/view?usp=drivesdk) incluye el `.pbix` y seis CSV derivados. Faltan revisión visual completa, confirmar la versión exacta de GTFS usada para el 18 y la entrega oficial. Los ZIP originales no están en GitHub. La actividad seguía **No enviado** al último chequeo de Bloque Neón.
+**Estado al 24/11/2026:** Alejandro publicó la integración corregida de los días 18–23 en [resultados y reproducción](docs/resultados.md) y [resúmenes agregados](datos/analisis/). El [borrador de ocho páginas en Power BI](docs/tablero_powerbi_2026-11-24.md) se actualizó con el cruce corregido del 18 y las franjas propuestas; el [paquete actualizado en el Drive compartido](https://drive.google.com/file/d/17RHHqiY2NE5UV9I8rZgRZhpfS4JC_b7B/view?usp=drivesdk) incluye únicamente el `.pbix` y seis CSV derivados. Faltan confirmar la versión exacta de GTFS usada para el 18 y la entrega oficial. Los ZIP originales no están en GitHub. La actividad seguía **No enviado** al último chequeo de Bloque Neón.
 
 ## Acceso al histórico de datos
 

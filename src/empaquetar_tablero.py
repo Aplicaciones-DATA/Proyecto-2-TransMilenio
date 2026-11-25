@@ -1,4 +1,4 @@
-"""Prepara un ZIP local para abrir el borrador de Power BI en otro equipo.
+"""Prepara un ZIP local con el tablero y seis CSV derivados.
 
 Uso: python src/empaquetar_tablero.py
 No sube nada a Internet ni incluye datos crudos o credenciales.
@@ -18,11 +18,6 @@ ARCHIVOS = [
     "datos/procesados/powerbi_mapa_contexto_localidad.csv",
     "datos/procesados/powerbi_relacion_localidad.csv",
     "datos/procesados/powerbi_ranking_estaciones.csv",
-    "docs/abrir_tablero_en_otro_equipo.md",
-    "docs/tablero_powerbi_2026-11-24.md",
-    "docs/auditoria_cobertura_estaciones_2026-11-24.md",
-    "reports/guion_presentacion_2026-11-24.md",
-    "reports/conclusiones_provisionales_2026-11-24.md",
 ]
 
 

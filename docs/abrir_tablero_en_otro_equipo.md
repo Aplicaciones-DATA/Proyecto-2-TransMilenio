@@ -4,7 +4,7 @@ Este es un **borrador local**, no una publicación ni la entrega del proyecto. L
 
 ## Archivos que acompañan al `.pbix`
 
-El paquete local más reciente se llama `outputs/Paquete_tablero_*.zip`. Lo crea `python src/empaquetar_tablero.py` y reúne el tablero, las seis tablas derivadas que utiliza, esta guía, la auditoría de cobertura y el guion de presentación:
+El paquete local más reciente se llama `outputs/Paquete_tablero_*.zip`. Lo crea `python src/empaquetar_tablero.py` y reúne únicamente el tablero y las seis tablas derivadas que utiliza. Esta guía, la auditoría de cobertura y el guion de presentación están en el repositorio de GitHub, no dentro del ZIP:
 
 - `TransMilenio_borrador_2026-11-24.pbix`
 - `powerbi_borrador_estacion_hora.csv`
@@ -18,9 +18,9 @@ Las seis tablas son agregadas o de contexto territorial; **no** se incluyen capt
 
 ## Pasos para Alejandro
 
-1. Extrae el ZIP completo en una carpeta de tu PC, conservando sus subcarpetas `outputs/`, `datos/procesados/`, `docs/` y `reports/`. Abre `outputs/TransMilenio_borrador_2026-11-24.pbix` con Power BI Desktop. Deberías poder ver las ocho páginas guardadas sin actualizar.
+1. Extrae el ZIP completo en una carpeta de tu PC, conservando sus subcarpetas `outputs/` y `datos/procesados/`. Abre `outputs/TransMilenio_borrador_2026-11-24.pbix` con Power BI Desktop. Deberías poder ver las ocho páginas guardadas sin actualizar.
 2. Para recalcular desde los CSV, en Power BI Desktop entra a **Inicio → Transformar datos → Configuración de origen de datos**. Cambia cada ruta de archivo que apunte al PC de Emanuel por el CSV del mismo nombre en tu carpeta extraída. Los decimales de los CSV usan **coma**; si Power BI los reconoce como texto, configura el tipo numérico con la región **Español (Colombia)**. Luego pulsa **Actualizar**.
 3. Comprueba que siguen apareciendo las ocho páginas, 151 estaciones en la tabla base y 132 estaciones en el ranking de seis días. Si alguna tabla no carga, revisa la ruta y no sustituyas un archivo por otro de nombre parecido.
-4. Antes de usar una cifra en la sustentación, compara el denominador de pasos del 18/11 con la versión GTFS y la regla de conteo que utilizaste. El documento `docs/tablero_powerbi_2026-11-24.md` resume la discrepancia; `docs/auditoria_cobertura_estaciones_2026-11-24.md` explica las exclusiones del mapa y de la razón.
+4. Antes de usar una cifra en la sustentación, compara el denominador de pasos del 18/11 con la versión GTFS y la regla de conteo que utilizaste. En GitHub, `docs/tablero_powerbi_2026-11-24.md` resume la discrepancia y `docs/auditoria_cobertura_estaciones_2026-11-24.md` explica las exclusiones del mapa y de la razón.
 
 La prueba reproducible `tests/validar_tablas_powerbi.py` verifica claves y totales de las tablas derivadas si también clonas el repositorio y conservas los CSV en `datos/procesados/`.
