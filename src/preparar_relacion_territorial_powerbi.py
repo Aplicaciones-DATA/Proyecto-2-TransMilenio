@@ -23,8 +23,8 @@ def main():
     )
     contexto = pd.read_csv(ENCUESTA, dtype={"codigo_localidad": str}, decimal=",")
 
-    # Usar seis fechas consecutivas con validaciones y GTFS de cada día.
-    datos = datos[datos["fecha"].between("2026-11-18", "2026-11-23")].copy()
+    # Usar solo los cinco días cuyo cruce con GTFS quedó conciliado.
+    datos = datos[datos["fecha"].between("2026-11-19", "2026-11-23")].copy()
     datos = datos[datos["codigo_localidad"].notna()].copy()
     if datos.duplicated(["fecha", "hora", "estacion_gtfs"]).any():
         raise ValueError("Hay más de una fila por estación, fecha y hora.")
@@ -66,8 +66,8 @@ def main():
     )
     if resumen["localidad"].isna().any():
         raise ValueError("Hay localidades sin contexto de la Encuesta Multipropósito.")
-    if resumen["dias"].max() > 6:
-        raise ValueError("El periodo del resumen no debe superar seis días.")
+    if resumen["dias"].max() > 5:
+        raise ValueError("El periodo del resumen no debe superar cinco días.")
 
     SALIDA.parent.mkdir(parents=True, exist_ok=True)
     resumen.to_csv(SALIDA, index=False, encoding="utf-8-sig", decimal=",")
