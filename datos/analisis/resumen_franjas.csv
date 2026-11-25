@@ -1,0 +1,7 @@
+﻿tipo_dia,franja,filas,filas_comparables,validaciones,validaciones_comparables,pasos_programados_comparables,cobertura_pct,validaciones_por_paso
+entre semana,otras horas,3960,3407,1183819,1017226,249579,85.927494,4.075768
+entre semana,pico,3598,3167,3750832,3323987,408893,88.619992,8.129234
+entre semana,valle,4174,3683,2372100,2059620,327734,86.826862,6.284426
+fin de semana,otras horas,1889,1629,277272,242406,76667,87.425344,3.161804
+fin de semana,pico,1791,1584,733144,644499,114613,87.908924,5.623263
+fin de semana,valle,2091,1848,887930,778154,134549,87.636863,5.783425
