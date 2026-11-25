@@ -43,3 +43,15 @@ Las URLs exactas y tamaños originales están disponibles en los metadatos de
 cada recurso del portal oficial. El script
 `src/publicar_fuentes_socioeconomicas.py` verifica tamaño y huellas antes
 de subir y después comprueba que Drive recibió los mismos bytes.
+
+## Indicadores territoriales integrados
+
+Para el análisis usamos los cuadros expandidos que ya publicó DANE para las **19 localidades urbanas**. Los porcentajes se copiaron de los anexos. Conservamos el universo expandido y el coeficiente de variación que reporta cada cuadro.
+
+| Indicador | Universo para el porcentaje | Cuadro |
+| --- | --- | --- |
+| Ingresos que no alcanzan para cubrir los gastos mínimos, según jefe o cónyuge | Hogares de la localidad | [Hogares, 211A](https://www.dane.gov.co/files/investigaciones/multi/Anexo_hogares_EM_2021.xlsx) |
+| Viaje al trabajo de más de una hora | Personas ocupadas que se desplazan al lugar de trabajo | [Personas, 321A](https://www.dane.gov.co/files/investigaciones/multi/Anexo_personas_EM_2021.xlsx) |
+| Viaje al establecimiento educativo de más de 40 minutos | Asistentes de 5 años y más de preescolar, básica y media que se desplazan al establecimiento educativo | [Personas, 312A](https://www.dane.gov.co/files/investigaciones/multi/Anexo_personas_EM_2021.xlsx) |
+
+Relacionamos las estaciones y los cuadros con el código de localidad. Cada porcentaje aparece una vez por localidad en la dimensión de encuesta. Las estimaciones se refieren a residentes de 2021.
