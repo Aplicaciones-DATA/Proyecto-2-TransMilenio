@@ -1,8 +1,8 @@
 # Primer boceto estático del tablero de Power BI (histórico)
 
-**Este documento registra el primer boceto, anterior a las descargas del 19–23 de noviembre y a la creación del `.pbix`. Para el estado vigente y los controles actuales, consultar [tablero_powerbi_2026-11-24.md](tablero_powerbi_2026-11-24.md). Las cifras y pendientes de abajo no describen el estado actual.**
+**Este documento registra el primer boceto, anterior a las descargas del 19–23 de noviembre y a la creación del `.pbix`. Para el estado vigente y los controles actuales, consultar [tablero_powerbi_2026-11-24.md](tablero_powerbi_2026-11-24.md) y los [resúmenes corregidos](../datos/analisis/). Las cifras, franjas y pendientes de abajo son históricos y no describen el análisis corregido.**
 
-Estado: 24 de noviembre de 2026. Este es un borrador para decidir el diseño; aún no existe un archivo `.pbix` verificado.
+Estado del primer boceto: 24 de noviembre de 2026, antes de crear el archivo `.pbix`. Se conserva para mostrar cómo evolucionó el diseño.
 
 ## Archivos preparados
 

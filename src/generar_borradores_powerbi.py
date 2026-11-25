@@ -43,7 +43,7 @@ def estilo_horario(eje):
     eje.grid(axis="y", alpha=0.25)
     eje.yaxis.set_major_formatter(FuncFormatter(formato_miles))
     eje.axvspan(6, 9, color="#f2c94c", alpha=0.12)
-    eje.axvspan(17, 20, color="#f2c94c", alpha=0.12)
+    eje.axvspan(16, 19, color="#f2c94c", alpha=0.12)
     eje.set_xlabel("Hora de Bogotá")
 
 
@@ -59,7 +59,7 @@ def demanda_por_hora(datos):
     eje.set_title("¿Cuándo se registraron más entradas? · Días disponibles")
     eje.legend(ncol=2, frameon=False)
     fig.text(0.08, 0.04,
-             "Amarillo: franjas pico provisionales (06–08 y 17–19). El lunes 16 se separa porque el GTFS activa servicio dominical.",
+             "Amarillo: franjas pico provisionales (06–08 y 16–18). El lunes 16 se separa porque el GTFS activa servicio dominical.",
              fontsize=9, color="#4b5563")
     fig.savefig(SALIDA / "01_entradas_por_hora.png", dpi=180)
     plt.close(fig)
@@ -85,7 +85,7 @@ def oferta_y_demanda(datos):
     ejes[0].set_title("Oferta y demanda por hora · Dos escalas separadas")
     ejes[0].legend(ncol=2, frameon=False)
     fig.text(0.09, 0.04,
-             "Cada línea usa solo estación-hora con entrada y paso programado comparables. El GTFS del fin de semana sigue pendiente.",
+             "Cada línea usa solo estación-hora con entrada y paso programado comparables. Aquí se muestran dos fechas de ejemplo.",
              fontsize=9, color="#4b5563")
     fig.savefig(SALIDA / "02_oferta_y_demanda_por_hora.png", dpi=180)
     plt.close(fig)
@@ -113,7 +113,7 @@ def relacion_pico_valle(datos):
     fig.text(0.30, 0.14, "Lunes 16 · servicio dominical", ha="center", fontsize=10)
     fig.text(0.75, 0.14, "Miércoles 18", ha="center", fontsize=10)
     fig.text(0.09, 0.04,
-             "Razón = suma de entradas / suma de pasos, solo filas comparables. Fin de semana: oferta aún sin emparejar.",
+             "Razón = suma de entradas / suma de pasos, solo filas comparables. Esta figura usa dos fechas de ejemplo.",
              fontsize=9, color="#4b5563")
     fig.savefig(SALIDA / "03_relacion_pico_valle.png", dpi=180)
     plt.close(fig)
@@ -147,7 +147,7 @@ def mapa_demanda(datos):
     eje.set_ylabel("Latitud")
     eje.set_title("¿Dónde se concentran las entradas? · Área urbana con estaciones")
     fig.text(0.10, 0.04,
-             f"Suma del 14, 15, 16 y 18 de noviembre. El mapa cubre {cobertura:.1f}% de las entradas; las demás no tienen coordenada vinculada.",
+             f"Suma de las nueve fechas exploratorias. El mapa cubre {cobertura:.1f}% de las entradas; las demás no tienen coordenada vinculada.",
              fontsize=9, color="#4b5563")
     fig.savefig(SALIDA / "04_mapa_concentracion_entradas.png", dpi=180)
     plt.close(fig)
@@ -159,7 +159,7 @@ def estaciones_destacadas(datos):
     fig, eje = plt.subplots(figsize=(10, 6.2), layout="constrained")
     eje.barh(mayores["nombre_estacion"], mayores["validaciones"], color="#0072b2")
     eje.xaxis.set_major_formatter(FuncFormatter(formato_miles))
-    eje.set_xlabel("Entradas registradas · cuatro días disponibles")
+    eje.set_xlabel("Entradas registradas · nueve fechas exploratorias")
     eje.set_title("Estaciones con más entradas registradas")
     eje.grid(axis="x", alpha=0.2)
     eje.set_axisbelow(True)
@@ -175,7 +175,7 @@ def comparar_tipos_de_dia(datos):
     por_hora = por_hora[por_hora["franja"].ne("Otras horas")]
     promedio = por_hora.groupby(["tipo_dia", "franja"])["validaciones"].mean()
     tipos = ["Fin de semana", "Lunes con servicio dominical", "Día hábil"]
-    etiquetas = ["Fin de semana\n(2 días)", "Lunes especial\n(1 día)", "Día hábil\n(1 día)"]
+    etiquetas = ["Fin de semana\n(4 días)", "Lunes especial\n(1 día)", "Día hábil\n(4 días)"]
     colores = ["#e69f00", "#6c757d", "#0072b2"]
     franjas = ["Pico (provisional)", "Valle (provisional)"]
     fig, eje = plt.subplots(figsize=(10, 5.8))
@@ -192,7 +192,7 @@ def comparar_tipos_de_dia(datos):
     eje.grid(axis="y", alpha=0.2)
     eje.set_axisbelow(True)
     fig.text(0.10, 0.04,
-             "Promedio horario de cada grupo de días. No compara oferta: faltan GTFS emparejados de sábado y domingo.",
+             "Promedio horario de cada grupo de días, sin oferta. Incluye cuatro días de fin de semana y cuatro hábiles.",
              fontsize=9, color="#4b5563")
     fig.savefig(SALIDA / "06_demanda_pico_valle_por_tipo_dia.png", dpi=180)
     plt.close(fig)

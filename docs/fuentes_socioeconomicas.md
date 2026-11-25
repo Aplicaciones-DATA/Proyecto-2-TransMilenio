@@ -29,10 +29,11 @@ No se modifican los archivos originales para el análisis.
   con estructura Esri; no se debe leer como GeoJSON estándar sin convertirlo.
   Verificar cobertura, año y correspondencia antes de usarla
   como límite para asignar estaciones.
-- Si la agrupación de UPZ impide una unión exacta, la alternativa más clara es
-  trabajar por **localidad**: agregar la encuesta con `COD_LOCALIDAD` y
-  asignar cada estación a una de las 20 localidades mediante la geometría
-  oficial. La unión espacial y los factores de expansión aún deben validarse.
+- La agrupación de UPZ impide una unión exacta con cada estación. La integración
+  corregida trabaja por **localidad**: asigna estaciones a polígonos oficiales
+  y utiliza los porcentajes expandidos publicados por DANE. Se ubicaron 128 de
+  132 estaciones comparables dentro de Bogotá; las otras cuatro quedan fuera
+  de sus polígonos. Este control no convierte la encuesta en datos de pasajeros.
 - La encuesta representa 2021 y la operación de TransMilenio se observa en
   2026. El contexto socioeconómico no describe automáticamente a quienes
   validaron en una estación ni prueba cambios individuales o causalidad.

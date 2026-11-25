@@ -2,6 +2,8 @@
 
 Incluye entradas del 14 al 16 y del 18 al 23 de noviembre.
 Del 18 al 23 y el 16 tienen GTFS comparable de su fecha; el 14 y 15 no.
+El cruce del 18 proviene de la versión corregida por Alejandro; 19–23
+coinciden con los cruces anteriores. No mezcla resultados de versiones.
 No modifica los ZIP originales ni publica datos personales.
 """
 
@@ -19,6 +21,11 @@ DIAS = PROYECTO.parent / "registros_diarios"
 SALIDA = PROYECTO / "datos" / "procesados" / "powerbi_borrador_estacion_hora.csv"
 FECHAS = [date(2026, 11, dia) for dia in (14, 15, 16, 18, 19, 20, 21, 22, 23)]
 FECHAS_CON_SERVICIO_ESPECIAL = {date(2026, 11, 16)}
+COMPARACION_CORREGIDA_18 = (
+    PROYECTO.parent
+    / "data_casi_lista"
+    / "Comparacion_TransMilenio_2026-11-18_con_localidades.csv"
+)
 
 
 def cargar_entradas_sin_gtfs(dia):
@@ -38,10 +45,15 @@ def cargar_entradas_sin_gtfs(dia):
 
 
 def cargar_comparacion(dia):
-    archivo = PROYECTO / "datos" / "procesados" / ("comparacion_estacion_hora_" + dia.isoformat() + ".csv")
+    if dia == date(2026, 11, 18):
+        archivo = COMPARACION_CORREGIDA_18
+    else:
+        archivo = PROYECTO / "datos" / "procesados" / ("comparacion_estacion_hora_" + dia.isoformat() + ".csv")
     if not archivo.exists():
         raise FileNotFoundError(archivo)
     datos = pd.read_csv(archivo, dtype={"estacion_gtfs": str})
+    # Las coordenadas se agregan una sola vez desde los GTFS de todos los días.
+    datos = datos.drop(columns=["latitud", "longitud"], errors="ignore")
     datos["comparable"] = datos["comparable"].astype(str).str.lower() == "true"
     datos["estado_oferta"] = "Comparable"
     datos.loc[~datos["comparable"], "estado_oferta"] = "Sin paso comparable"
@@ -71,10 +83,10 @@ def cargar_coordenadas():
 
 
 def clasificar_franja(hora):
-    # Regla provisional para discutir sobre los primeros gráficos, no horario oficial.
-    if 6 <= hora < 9 or 17 <= hora < 20:
+    # Misma regla provisional del análisis corregido de Alejandro.
+    if 6 <= hora < 9 or 16 <= hora < 19:
         return "Pico (provisional)"
-    if 9 <= hora < 17:
+    if 9 <= hora < 16:
         return "Valle (provisional)"
     return "Otras horas"
 
@@ -92,11 +104,17 @@ def clasificar_tipo_dia(fecha):
 def main():
     partes = []
     for dia in FECHAS:
-        comparacion = PROYECTO / "datos" / "procesados" / (
-            "comparacion_estacion_hora_" + dia.isoformat() + ".csv"
-        )
+        if dia == date(2026, 11, 18):
+            comparacion = COMPARACION_CORREGIDA_18
+        else:
+            comparacion = PROYECTO / "datos" / "procesados" / (
+                "comparacion_estacion_hora_" + dia.isoformat() + ".csv"
+            )
         if not comparacion.exists():
-            partes.append(cargar_entradas_sin_gtfs(dia))
+            if dia in (date(2026, 11, 14), date(2026, 11, 15)):
+                partes.append(cargar_entradas_sin_gtfs(dia))
+            else:
+                raise FileNotFoundError(comparacion)
         else:
             partes.append(cargar_comparacion(dia))
 

@@ -10,12 +10,14 @@ import pandas as pd
 
 PROYECTO = Path(__file__).resolve().parent.parent
 PROCESADOS = PROYECTO / "datos" / "procesados"
+CORREGIDO_18 = PROYECTO.parent / "data_casi_lista" / "Comparacion_TransMilenio_2026-11-18_con_localidades.csv"
+RESUMEN_ALEJANDRO = PROYECTO / "datos" / "analisis" / "resumen_franjas.csv"
+COBERTURA_ALEJANDRO = PROYECTO / "datos" / "analisis" / "cobertura_diaria.csv"
 TABLA = PROCESADOS / "powerbi_tabla_integrada_provisional.csv"
 RANKING = PROCESADOS / "powerbi_ranking_estaciones.csv"
 RELACION_LOCALIDAD = PROCESADOS / "powerbi_relacion_localidad.csv"
 MAPA_LOCALIDAD = PROCESADOS / "powerbi_mapa_contexto_localidad.csv"
 FECHAS_CON_GTFS = [
-    "2026-11-16",
     "2026-11-18",
     "2026-11-19",
     "2026-11-20",
@@ -34,10 +36,14 @@ def main():
     assert datos["validaciones"].ge(0).all(), "Hay entradas negativas."
     assert datos.loc[datos["comparable"], "pasos_programados"].gt(0).all()
     assert datos["hora"].between(0, 23).all(), "Hay una hora fuera de rango."
+    assert sorted(datos["fecha"].unique()) == FECHAS_CON_GTFS, (
+        "El tablero debe mostrar solo las seis fechas con oferta y demanda comparables."
+    )
 
     for fecha in FECHAS_CON_GTFS:
+        fuente = CORREGIDO_18 if fecha == "2026-11-18" else PROCESADOS / f"comparacion_estacion_hora_{fecha}.csv"
         origen = pd.read_csv(
-            PROCESADOS / f"comparacion_estacion_hora_{fecha}.csv",
+            fuente,
             dtype={"estacion_gtfs": str},
         )
         seleccionado = datos[datos["fecha"] == fecha]
@@ -48,10 +54,6 @@ def main():
         assert seleccionado["pasos_programados"].sum() == origen[
             "pasos_programados"
         ].sum(), f"Cambió el total de pasos {fecha}."
-
-    sin_gtfs = datos[datos["fecha"].isin(["2026-11-14", "2026-11-15"])]
-    assert sin_gtfs["pasos_programados"].isna().all()
-    assert not sin_gtfs["comparable"].any()
 
     ranking = pd.read_csv(RANKING, decimal=",", dtype={"estacion_gtfs": str})
     assert not ranking["estacion_gtfs"].duplicated().any()
@@ -82,7 +84,7 @@ def main():
     print("ENTRADAS TOTALES:", int(datos["validaciones"].sum()))
     print("ENTRADAS COMPARABLES:", int(comparables["validaciones"].sum()))
     print("PASOS COMPARABLES:", int(comparables["pasos_programados"].sum()))
-    print("COBERTURA NUEVE FECHAS (%; 14/15 SIN GTFS):", round(100 * comparables["validaciones"].sum() / datos["validaciones"].sum(), 2))
+    print("COBERTURA SEIS FECHAS (%):", round(100 * comparables["validaciones"].sum() / datos["validaciones"].sum(), 2))
     print("RANKING DE SEIS DÍAS:", len(ranking), "estaciones")
     print("LOCALIDADES EN TABLA TERRITORIAL:", len(relacion_localidad))
     print("LOCALIDADES CON COORDENADAS EN MAPA:", len(mapa_localidad))
@@ -90,6 +92,15 @@ def main():
     print("CONTROLES: CORRECTOS")
 
     periodo = datos[datos["fecha"].between("2026-11-18", "2026-11-23")]
+    cobertura = pd.read_csv(COBERTURA_ALEJANDRO)
+    totales = periodo.groupby("fecha", as_index=False)["pasos_programados"].sum()
+    verificacion = totales.merge(
+        cobertura[["fecha", "pasos_programados_comparables"]],
+        on="fecha", validate="one_to_one",
+    )
+    assert verificacion["pasos_programados"].eq(
+        verificacion["pasos_programados_comparables"]
+    ).all(), "Los pasos por día no coinciden con el análisis de Alejandro."
     sin_paso = periodo[~periodo["comparable"]]
     print("\nCOBERTURA 18–23/11 (%):", round(100 * periodo.loc[periodo["comparable"], "validaciones"].sum() / periodo["validaciones"].sum(), 2))
     print("ENTRADAS SIN PASO COMPARABLE 18–23/11:", int(sin_paso["validaciones"].sum()))
@@ -100,6 +111,26 @@ def main():
         ["validaciones", "pasos_programados"]
     ].sum()
     resumen["entradas_por_paso"] = resumen["validaciones"] / resumen["pasos_programados"]
+    nombres_tipo = {"Día hábil": "entre semana", "Fin de semana": "fin de semana"}
+    nombres_franja = {
+        "Pico (provisional)": "pico",
+        "Valle (provisional)": "valle",
+        "Otras horas": "otras horas",
+    }
+    resumen["tipo_alejandro"] = resumen["tipo_dia"].map(nombres_tipo)
+    resumen["franja_alejandro"] = resumen["franja"].map(nombres_franja)
+    publicado = pd.read_csv(RESUMEN_ALEJANDRO)[
+        ["tipo_dia", "franja", "validaciones_comparables", "pasos_programados_comparables"]
+    ]
+    cotejo = resumen.merge(
+        publicado,
+        left_on=["tipo_alejandro", "franja_alejandro"],
+        right_on=["tipo_dia", "franja"],
+        validate="one_to_one",
+    )
+    assert len(cotejo) == 6, "Falta una combinación de tipo de día y franja."
+    assert cotejo["validaciones"].eq(cotejo["validaciones_comparables"]).all()
+    assert cotejo["pasos_programados"].eq(cotejo["pasos_programados_comparables"]).all()
     print("\nRAZÓN 18–23/11, SOLO FILAS COMPARABLES:")
     print(resumen.to_string(index=False))
 

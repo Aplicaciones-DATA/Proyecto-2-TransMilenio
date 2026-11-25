@@ -1,8 +1,7 @@
-"""Añade localidades al borrador del tablero sin cambiar las medidas originales.
+"""Añade localidades al borrador basado en el cruce corregido del 18.
 
-El archivo de Alejandro sirve aquí como tabla de correspondencia estación-localidad.
-Sus pasos programados se auditan, pero no reemplazan los del cruce previo porque
-los dos cálculos no coinciden. Los archivos de entrada se conservan intactos.
+El archivo de Alejandro aporta el conteo corregido del 18 y la
+correspondencia estación-localidad. Los originales quedan intactos.
 """
 
 from pathlib import Path
@@ -29,7 +28,7 @@ def preparar_correspondencia(datos_alejandro):
 
 
 def revisar_pasos(datos_originales, datos_alejandro):
-    """Cuenta discrepancias sobre las mismas claves, sin modificar ningún dato."""
+    """Exige que el borrador use exactamente el cruce corregido del 18."""
     previo = datos_originales[datos_originales["fecha"] == "2026-11-18"]
     anterior = previo[["fecha", "hora", "estacion_gtfs", "pasos_programados"]]
     nuevo = datos_alejandro[["fecha", "hora", "estacion_gtfs", "pasos_programados"]]
@@ -43,14 +42,12 @@ def revisar_pasos(datos_originales, datos_alejandro):
     )
     if not cotejo["_merge"].eq("both").all():
         raise ValueError("Las claves de estación-hora del 18 de noviembre no coinciden.")
-    diferentes = (
-        cotejo["pasos_programados_previo"].ne(cotejo["pasos_programados_alejandro"])
-        & cotejo["pasos_programados_previo"].notna()
-        & cotejo["pasos_programados_alejandro"].notna()
+    diferentes = cotejo["pasos_programados_previo"].fillna(-1).ne(
+        cotejo["pasos_programados_alejandro"].fillna(-1)
     )
-    print("Pasos distintos entre las dos versiones:", int(diferentes.sum()))
-    print("Pasos en versión previa:", int(cotejo["pasos_programados_previo"].sum()))
-    print("Pasos en versión de Alejandro:", int(cotejo["pasos_programados_alejandro"].sum()))
+    if diferentes.any():
+        raise ValueError("El borrador todavía no usa los pasos corregidos del 18.")
+    print("Pasos corregidos del 18:", int(cotejo["pasos_programados_previo"].sum()))
 
 
 def main():
@@ -65,6 +62,10 @@ def main():
         raise ValueError("La tabla de Alejandro tiene claves repetidas.")
 
     revisar_pasos(datos, alejandro)
+    # El .pbix compara entradas y oferta: ambas deben cubrir el mismo periodo.
+    # El 14–16 sigue disponible en la tabla intermedia para exploración, pero
+    # el tablero final consume únicamente los seis días comparables 18–23.
+    datos = datos[datos["fecha"].between("2026-11-18", "2026-11-23")].copy().reset_index(drop=True)
     correspondencia = preparar_correspondencia(alejandro)
     integrado = datos.merge(
         correspondencia,

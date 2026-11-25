@@ -1,6 +1,6 @@
 # Bitácora de preparación e integración
 
-Los datos originales se conservan sin cambios. Esta bitácora distingue el primer borrador de Power BI de la integración corregida de Alejandro; no deben mezclarse sus indicadores sin reconstruir el tablero.
+Los datos originales se conservan sin cambios. Esta bitácora distingue el primer borrador de Power BI de la integración corregida de Alejandro. Las tablas del tablero se reconstruyeron con el cruce corregido del 18 y se refrescó el `.pbix` a las 22:40; aun así, el primer borrador queda documentado como antecedente, no como resultado vigente.
 
 ## Primer borrador de Power BI
 
@@ -14,7 +14,11 @@ Los datos originales se conservan sin cambios. Esta bitácora distingue el prime
 
 Antes y después de cada unión, verificar cardinalidad, duplicaciones y registros sin correspondencia. Explicar cualquier exclusión que pueda reducir la cobertura de una troncal o zona.
 
-**Advertencia:** el borrador conserva un conteo previo del 18 y usa pico 06–08/17–19 y valle 09–16. Alejandro ya corrigió el 18 y usa pico 06–08/16–18 y valle 09–15. Por eso las cifras del `.pbix` son provisionales. Las filas sin coordenada y las estaciones sin localidad no se eliminan de la tabla principal; solo quedan fuera de las visualizaciones que necesitan esos campos. [Scripts citados]
+**Advertencia histórica:** el primer borrador usaba un conteo previo del 18 y pico 06–08/17–19, valle 09–16. La integración corregida usa pico 06–08/16–18 y valle 09–15. Las filas sin coordenada y las estaciones sin localidad no se interpretan como ceros: solo quedan fuera de visualizaciones que necesitan esos campos. [Scripts citados]
+
+## Actualización del tablero a las 22:40
+
+Se incorporó el CSV detallado corregido de Alejandro para el 18/11 sin modificarlo; los cruces locales del 19–23 mantenían los mismos totales de pasos. La tabla integrada de Power BI quedó limitada a **17.503 filas de 18–23/11**; la exploratoria conserva **26.060 filas de nueve fechas**. El 18 corregido aporta **248.283 pasos comparables** y el periodo completo **1.312.035**. Las seis tablas derivadas pasaron la prueba `tests/validar_tablas_powerbi.py` y el `.pbix` se actualizó y guardó. Falta revisar cada página visualmente, confirmar las franjas con el equipo y documentar la versión exacta de GTFS utilizada en el 18. [CSV detallado local de Alejandro; `datos/analisis/cobertura_diaria.csv`; tablas regeneradas; prueba citada]
 
 ## Integración corregida del 18–23
 
