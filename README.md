@@ -50,7 +50,7 @@ En la propuesta también nos preguntamos lo siguiente.
 
 La pregunta anterior pertenece a la propuesta original. En la primera exploración todavía no había un histórico verificado de paso real de buses ni una correspondencia completa entre los `trip_id` de posiciones y del GTFS. Después se inició un piloto de recolección; su cobertura y calidad aún deben comprobarse. Por eso el equipo trabaja con entradas observadas y oferta **programada**, no con un supuesto indicador de confiabilidad real.
 
-La comparación vigente usa GTFS estático diario, validaciones por estación y hora, correspondencia estación-localidad y agregados sociodemográficos por localidad. Es una señal descriptiva de oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [notebook inicial](notebooks/01_exploracion_oferta_programada.ipynb) explora rutas y viajes; el [documento del tablero del 24/11](docs/tablero_powerbi_2026-11-24.md) registra una versión histórica. Para abrir el tablero vigente en otro equipo, usa la [guía de traslado](docs/abrir_tablero_en_otro_equipo.md).
+La comparación vigente usa GTFS estático diario, validaciones por estación y hora, correspondencia estación-localidad y agregados sociodemográficos por localidad. Es una señal descriptiva de oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [notebook inicial](notebooks/01_exploracion_oferta_programada.ipynb) explora rutas y viajes; el [resumen de resultados](docs/resultados.md) describe el corte actual. Para abrir el tablero vigente en otro equipo, usa la [guía de traslado](docs/abrir_tablero_en_otro_equipo.md).
 
 Las descargas locales y sus huellas se documentan en [el registro de descargas](docs/registro_descargas.md). Los archivos diarios y las capturas `.pb` no se publican en este repositorio.
 
@@ -64,7 +64,7 @@ Las descargas locales y sus huellas se documentan en [el registro de descargas](
 
 Conservamos las capturas GTFS-Realtime del piloto en Drive. Describimos las fuentes y sus límites en [docs/fuentes.md](docs/fuentes.md).
 
-Los originales están fuera de Git. El **18/11 se excluyó** del análisis vigente: existe un ZIP GTFS, pero su conteo de pasos no reproduce el CSV corregido utilizado en una versión anterior. No lo tratamos como un día sin datos ni mezclamos sus cifras con el corte actual. El **24/11 tampoco se incluye** porque no se incorporaron validaciones oficiales comparables de esa fecha. La [auditoría de datos](docs/auditoria_datos_tablero_2026-11-25.md), la [auditoría de cobertura de estaciones](docs/auditoria_cobertura_estaciones_2026-11-24.md) y las [fuentes territoriales](docs/fuentes_socioeconomicas.md) documentan estas decisiones y límites. Algunos documentos fechados el 24/11 describen el corte histórico **18–23**; para las cifras vigentes debe consultarse [resultados](docs/resultados.md).
+Los originales están fuera de Git. El **18/11 se excluyó** del análisis vigente: existe un ZIP GTFS, pero su conteo de pasos no reproduce el CSV corregido utilizado en una versión anterior. No lo tratamos como un día sin datos ni mezclamos sus cifras con el corte actual. El **24/11 tampoco se incluye** porque no se incorporaron validaciones oficiales comparables de esa fecha. El [resumen de resultados](docs/resultados.md) y las [fuentes territoriales](docs/fuentes_socioeconomicas.md) documentan estas decisiones y límites. Los documentos de cortes anteriores permanecen en el historial de Git; sus cifras no sustituyen las del análisis vigente.
 
 ## Indicadores del tablero actual y límites
 
@@ -142,7 +142,6 @@ El [documento ético](docs/Consideraciones_eticas_Proyecto_2_TransMilenio.docx) 
 ├── notebooks/                # Exploración y análisis reproducible
 ├── src/                      # Funciones o scripts reutilizables
 ├── outputs/                  # Paquetes y figuras de trabajo locales, excluidos de Git
-├── reports/                  # Materiales de comunicación históricos
 └── docs/
     ├── fuentes.md            # Procedencia, cobertura, licencia y llaves
     ├── bitacora_limpieza.md  # Decisiones y efectos de preparación
