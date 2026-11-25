@@ -1,6 +1,6 @@
-# Tablero Power BI: copia local posterior a la entrega
+# Tablero Power BI: copia de trabajo posterior a la entrega
 
-**Archivo de trabajo:** `outputs/TransMilenio_postentrega_2026-11-25_filtros.pbix`. Es una copia **local** de nueve páginas, distinta del PBIX de ocho páginas descrito en [la documentación del 24/11](tablero_powerbi_2026-11-24.md). Esta nota no indica que la copia nueva se haya compartido ni entregado. `outputs/` está excluido de Git.
+**Archivo de trabajo:** `outputs/TransMilenio_postentrega_2026-11-25_filtros.pbix`. Es una copia de nueve páginas, distinta del PBIX de ocho páginas descrito en [la documentación del 24/11](tablero_powerbi_2026-11-24.md). Se [subió y verificó en el Drive compartido](https://drive.google.com/file/d/1bWvCNey0oNqu3tDDwqmWedewEQ3qimib/view?usp=drivesdk) **después** del cierre mediante [el script de publicación](../src/publicar_pbix_drive.py), sin reemplazar el PBIX anterior. **Compartirla en Drive no equivale a haberla entregado oficialmente**: la versión de nueve páginas no formó parte del envío registrado en Bloque Neón. El archivo local permanece en `outputs/`, carpeta excluida de Git.
 
 ## Páginas y navegación
 
