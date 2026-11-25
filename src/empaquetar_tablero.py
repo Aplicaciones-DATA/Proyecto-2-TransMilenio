@@ -1,4 +1,4 @@
-"""Prepara un ZIP local con el tablero y seis CSV derivados.
+"""Prepara un ZIP local con el tablero del 19–23 y seis CSV derivados.
 
 Uso: python src/empaquetar_tablero.py
 No sube nada a Internet ni incluye datos crudos o credenciales.
@@ -11,7 +11,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 PROYECTO = Path(__file__).resolve().parent.parent
 ARCHIVOS = [
-    "outputs/TransMilenio_borrador_2026-11-24.pbix",
+    "outputs/TransMilenio_19-23_noviembre_2026.pbix",
     "datos/procesados/powerbi_borrador_estacion_hora.csv",
     "datos/procesados/powerbi_tabla_integrada_provisional.csv",
     "datos/procesados/powerbi_contexto_localidad_em2021.csv",

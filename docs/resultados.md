@@ -1,46 +1,46 @@
-# Resultados y reproducción
+# Resultados exploratorios del 19 al 23 de noviembre de 2026
 
-## Qué encontramos
+## Pregunta y corte acordados
 
-| Tipo de día | Pico | Valle |
-| --- | ---: | ---: |
-| Entre semana, cuatro días | 8,13 | 6,28 |
-| Fin de semana, dos días | 5,62 | 5,78 |
+El equipo escogió la siguiente pregunta: **¿cómo varían las entradas registradas frente a los pasos de bus programados entre franjas pico y valle, días hábiles y fines de semana, y estaciones troncales de los días comparables? ¿Qué contexto muestran las localidades donde se encuentran esas estaciones?** La pregunta queda cerrada como decisión del equipo. Este documento describe cinco días, del **19 al 23 de noviembre de 2026**: tres días hábiles y dos de fin de semana. No representa todo el mes ni toda la red.
 
-Unidad: validaciones por paso programado. El cociente se calcula con la suma de las validaciones comparables dividida por la suma de los pasos de esas mismas filas. Usamos como rangos de análisis propuestos las horas 06–08 y 16–18 para pico, y 09–15 para valle, incluyendo la hora completa. El equipo puede confirmarlos o cambiarlos al reproducir el análisis. Las cifras corresponden **solo al 18–23/11/2026**, no a todo el mes ni a la red completa.
+El **18 de noviembre se excluyó** de este nuevo corte porque dos conteos de pasos programados para las mismas 2.931 claves estación–fecha–hora no coinciden: el cruce local suma **235.072** y el CSV corregido utilizado antes suma **248.283**. Sí existe un ZIP GTFS local de esa fecha; el problema es que no se ha podido identificar el archivo y/o la regla que reproduce el segundo conteo. Las validaciones del 18 no se usan en los indicadores ni en los gráficos de este documento. Los originales y la auditoría se conservan sin modificaciones. [Auditoría del corte anterior](auditoria_datos_tablero_2026-11-25.md).
 
-Durante el pico de entre semana, Portal 20 de Julio registró 81.894 validaciones comparables y 2.357 pasos programados (34,75 por paso). Le siguieron Portal Suba (29,01) y Portal 80 (28,99). Las 06:00–06:59 tuvieron el mayor volumen comparable al sumar los seis días, con 822.057 entradas.
+## Qué muestran los datos filtrados
 
-Un caso territorial es San Cristóbal, donde queda Portal 20 de Julio. En la EM 2021, el 33,5 % de los hogares reportó ingresos insuficientes para gastos mínimos y el 23,7 % de los ocupados que se desplazaban al trabajo reportó un viaje de más de una hora. En Suba las cifras respectivas fueron 15,8 % y 14,9 %. El indicador de desplazamiento al estudio se conserva con su universo por separado. La [documentación de fuentes socioeconómicas](fuentes_socioeconomicas.md) explica los denominadores.
+| Indicador del 19 al 23 | Valor | Interpretación |
+| --- | ---: | --- |
+| Entradas registradas | 7.252.722 | Validaciones de ingreso, no personas únicas. |
+| Entradas comparables | 6.353.794 | Entradas con al menos un paso programado en la misma estación, fecha y hora. |
+| Pasos programados en filas comparables | 1.063.752 | Denominador del indicador, no todos los pasos de la red. |
+| Entradas por paso programado comparable | 5,97 | Cociente de las dos filas anteriores, no ocupación de buses. |
+| Cobertura de entradas para el cociente | 87,61 % | Porcentaje de entradas con un paso emparejado; las restantes no equivalen a cero buses. |
 
-Como siguiente paso proponemos comprobar frecuencias reales y filas de espera en Portal 20 de Julio en las franjas destacadas. Para estimar ocupación y puntualidad se requieren observaciones de campo. Las conclusiones se circunscriben a los seis días y el 24 queda documentado como oferta programada. El mapa territorial también tiene cobertura incompleta: 133 de 151 estaciones de la tabla integrada tienen localidad y solo 18 localidades aparecen en la comparación.
+La unidad de la tabla principal es **estación + fecha + hora**. La razón se calcula como la **suma de entradas comparables dividida por la suma de pasos programados de esas mismas filas**. No se promedian cocientes por fila ni se cambian valores sin correspondencia por cero. Las franjas de trabajo son pico **06:00–08:59 y 16:00–18:59**, valle **09:00–15:59**, y las demás horas se mantienen aparte. Son reglas del análisis, no una definición oficial de TransMilenio.
 
-## Repetir el cruce y la integración
+| Tipo de día | Pico | Valle | Lectura prudente |
+| --- | ---: | ---: | --- |
+| Tres días hábiles | 7,91 | 6,20 | En estos tres días, la relación entradas/pasos fue mayor en pico. |
+| Dos días de fin de semana | 5,62 | 5,78 | En estos dos días, la diferencia fue pequeña y en sentido contrario. |
 
-Instala las dependencias del repositorio con `py -m pip install -r requirements.txt`. Coloca los ZIP diarios de validaciones y GTFS en `../registros_diarios/AAAA-MM-DD/`. Para generar cruces locales en PowerShell, desde la raíz del repositorio:
+En el corte filtrado, los mayores **volúmenes** de entradas incluyen Portal Norte (**283.353**), Portal Américas (**268.751**) y Portal Suba (**225.693**). Esos totales indican dónde se registraron más entradas, pero por sí solos no prueban saturación ni servicio insuficiente. El ranking por entradas **por paso** responde otra pregunta y debe usar exclusivamente filas comparables.
+
+El archivo filtrado conserva **151 estaciones**; **135** tienen coordenadas y **133** tienen localidad asignada. Las filas con coordenadas representan **6.428.527 entradas** (**88,64 %** del total) y las que tienen localidad, **6.319.643** (**87,13 %**). Por tanto, un punto ausente del mapa no significa demanda cero. El contexto de la Encuesta Multipropósito corresponde a **residentes de 2021** de la localidad, no a las personas que validaron en 2026. No debe confundirse localidad de la estación con residencia del pasajero. Dos tablas sociales contienen indicadores y universos distintos: no se deben mezclar sus porcentajes. Véanse [fuentes](fuentes.md) y [fuentes socioeconómicas](fuentes_socioeconomicas.md).
+
+## Conclusiones provisionales y siguiente comprobación
+
+En los tres días hábiles incluidos, el cociente entradas/pasos programados fue mayor en las franjas pico que en valle. En los dos días de fin de semana no se observó el mismo contraste. Los mapas y el ranking permiten escoger estaciones para una revisión, pero **no miden si los buses efectivamente llegaron, su ocupación o la causa de las diferencias**. La recomendación proporcional a esta evidencia es verificar la operación real y ampliar el periodo antes de proponer cambios de servicio. Estas conclusiones son provisionales hasta que el equipo revise los gráficos y el Word analítico correspondientes al corte de cinco días.
+
+## Reproducción y estado de los productos
+
+Los agregados de cinco días se obtuvieron filtrando los CSV derivados por fechas **19–23/11** y se cotejaron con los cinco resúmenes diarios. Para repetir el cruce desde fuentes originales, conservar intactos los ZIP oficiales de validaciones y GTFS en `../registros_diarios/AAAA-MM-DD/` y ejecutar desde la raíz del repositorio:
 
 ```powershell
-18..23 | ForEach-Object { py .\src\comparar_validaciones_gtfs.py "2026-11-$_" }
+19..23 | ForEach-Object { py .\src\comparar_validaciones_gtfs.py "2026-11-$_" }
 ```
 
-**Límite de reproducción:** el tablero compartido y las cifras de este documento usan para el 18 el archivo detallado corregido por Alejandro, `../data_casi_lista/Comparacion_TransMilenio_2026-11-18_con_localidades.csv` (2.931 filas y 248.283 pasos comparables). El cruce que genera el script anterior a partir del ZIP local del 18 suma 235.072 pasos en esa fecha. Los resultados 19–23 sí coinciden entre versiones. Todavía no está identificado ni documentado el ZIP GTFS exacto ni la regla que produjeron el denominador corregido del 18; por tanto, **el comando anterior no reproduce exactamente el tablero ni esta tabla**. No se debe sustituir el CSV de Alejandro por la salida local del 18 sin resolver esa diferencia. Véanse [bitácora de limpieza](bitacora_limpieza.md) y [documentación del tablero](tablero_powerbi_2026-11-24.md).
+Este comando **solo** genera los cruces diarios; no actualiza por sí solo las tablas territoriales ni Power BI. La **copia de trabajo actualizada** está en `C:\Users\c.collazost\Desktop\DATA\PROYS\PROY FINAL\DATOS - Muestra 0.1\TransMilenio_19-23_noviembre_2026.pbix` y también en el [paquete del Drive compartido](https://drive.google.com/file/d/1JJ2RuE9qTF57AE5q8ZbDaqOlNWgkDA-o/view?usp=drivesdk) junto con los seis CSV que necesita Power BI. Se refrescó y comprobó localmente: el periodo visible es 19–23/11, las tarjetas muestran **5,97 entradas por paso comparable** y **87,61 % de cobertura**, y se corrigieron los títulos que aún decían 18–23. El PBIX no se publicó en GitHub ni sustituyó el envío oficial del 24/11; las copias anteriores del tablero son históricas.
 
-Guarda estos insumos oficiales en una carpeta `insumos` fuera de Git. Cambia los nombres de la ruta en el comando si los guardaste en otro sitio.
+El análisis figura por figura está en el [documento Word de trabajo](analisis_graficos_19_23_2026.docx), dentro de `docs/`. El [prompt detallado para Claude](prompt_claude_presentacion_19_23.md) también está en `docs/`; ambas piezas se copiaron a `DATOS - Muestra 0.1` para la revisión. El Word y la futura presentación deben discutirse con el equipo antes de considerar definitivas sus conclusiones.
 
-- [Hogares 2021, DANE](https://www.dane.gov.co/files/investigaciones/multi/Anexo_hogares_EM_2021.xlsx) como `hogares.xlsx`.
-- [Personas 2021, DANE](https://www.dane.gov.co/files/investigaciones/multi/Anexo_personas_EM_2021.xlsx) como `personas.xlsx`.
-- [Polígonos oficiales en WGS84](https://serviciosgis.catastrobogota.gov.co/arcgis/rest/services/ordenamientoterritorial/localidad/MapServer/0/query?where=1%3D1&outFields=LOCCODIGO%2CLOCNOMBRE&outSR=4326&f=geojson) como `localidades.geojson`.
-
-```powershell
-py .\src\integrar_contexto_localidades.py --procesados .\datos\procesados --gtfs "..\registros_diarios\2026-11-18\GTFS (1).zip" --localidades ..\insumos\localidades.geojson --hogares ..\insumos\hogares.xlsx --personas ..\insumos\personas.xlsx --salida .\datos\procesados
-```
-
-El nombre `GTFS (1).zip` corresponde al archivo local inventariado para el 18; compruébalo antes de ejecutar en otro equipo. Este comando ilustra la integración desde los cruces locales, **no** la reproducción exacta del resultado corregido del 18. Para reproducir los números publicados hay que incorporar el CSV detallado de Alejandro y documentar su GTFS y regla de cómputo. Para explorar otras franjas, pasa los inicios de cada hora con `--pico` y `--valle`. El código verifica que los rangos no se solapen y que el cruce territorial preserve las filas y totales.
-
-## Recorrido de la demostración
-
-1. Muestra la cobertura y explica qué se cruzó.
-2. Filtra entre semana y compara pico con valle. Cambia a fin de semana para mostrar cómo cambia el patrón en la muestra.
-3. Abre Portal 20 de Julio y muestra ambos conteos detrás de 34,75.
-4. Ubica la estación en San Cristóbal y compara con Suba usando la encuesta como contexto. Indica que son datos de residentes de 2021.
-5. Cierra con la verificación de frecuencias reales y filas de espera como acción concreta.
+La diferencia no conciliada del 18 sigue documentada como una limitación histórica, no como una fecha faltante. El 24 tampoco se incluye: en la última revisión no estaban disponibles sus validaciones oficiales para emparejar con el GTFS de ese mismo día. La cobertura, los indicadores sociales y los datos GPS deben citarse con su año, unidad y límites. [Auditoría de datos](auditoria_datos_tablero_2026-11-25.md) y [documentación del tablero anterior](tablero_powerbi_postentrega_2026-11-25.md).
