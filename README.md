@@ -4,7 +4,7 @@ Hicimos este proyecto para **Aplicaciones en Ciencia de Datos (DATA-1002)** en l
 
 **Equipo:** Chiudacchang Collazos Trujillo y Alejandro Rojas.
 
-**Estado al 25/11/2026:** el análisis vigente compara el **19–23 de noviembre**; se excluyó el 18 porque su conteo de pasos programados no se pudo conciliar entre dos versiones. Consulta los [resultados](docs/resultados.md), los [resúmenes agregados](datos/analisis/) y el [paquete actualizado de Power BI con seis CSV derivados](https://drive.google.com/file/d/1JJ2RuE9qTF57AE5q8ZbDaqOlNWgkDA-o/view?usp=drivesdk), disponible en el Drive compartido para Alejandro. El [análisis de gráficos](docs/analisis_graficos_19_23_2026.docx) y la [guía para la presentación](docs/prompt_claude_presentacion_19_23.md) están en `docs/`. Este paquete es posterior a la entrega oficial del 24/11 y no la sustituye. Los archivos crudos y las credenciales no están en GitHub.
+**Estado al 25/11/2026:** el análisis vigente compara el **19–23 de noviembre**; se excluyó el 18 porque su conteo de pasos programados no se pudo conciliar entre dos versiones. Consulta los [resultados](docs/resultados.md), los [resúmenes agregados](datos/analisis/) y la [última copia del tablero Power BI](docs/TransMilenio_19-23_manana_tarde_revisado.pbix). Los CSV necesarios para actualizarlo están en el [paquete del Drive compartido](https://drive.google.com/file/d/1JJ2RuE9qTF57AE5q8ZbDaqOlNWgkDA-o/view?usp=drivesdk). El [análisis de gráficos](docs/analisis_graficos_19_23_2026.docx), las [consideraciones éticas](docs/Consideraciones_eticas_Proyecto_2_TransMilenio.docx) y la [presentación](docs/BORRADOR%20%C2%B7%20Proyecto%202%20TransMilenio%20%C2%B7%2019%E2%80%9323%20nov.%202026.pptx) están en `docs/`. Estos materiales posteriores no sustituyen la entrega oficial del 24/11. Los archivos crudos y las credenciales no están en GitHub.
 
 ## Acceso al histórico de datos
 
@@ -20,21 +20,21 @@ En Drive dejamos el GTFS diario y las capturas `.pb.gz` del piloto; descargamos 
 
 ## Resumen y propósito
 
-La **propuesta original** buscaba evaluar la confiabilidad del servicio. El alcance funcional es más acotado: comparar entradas registradas con **pasos de bus programados**, por estación, franja y tipo de día. El contexto de la Encuesta Multipropósito 2021 se agrega por localidad; no describe a los pasajeros individuales. Esto orienta dónde investigar el servicio, pero no demuestra retrasos, ocupación ni efecto racimo.
+La **propuesta original** buscaba evaluar la confiabilidad del servicio. El alcance que sí permiten estos datos es descriptivo: comparar entradas registradas con **pasos de bus programados**, por estación, franja y tipo de día. La Encuesta Multipropósito 2021 aporta contexto de las localidades, pero no describe a los pasajeros individuales. El análisis ayuda a identificar estaciones para estudiar con más detalle; no demuestra retrasos, ocupación ni efecto racimo.
 
 Nos interesa el tema porque las demoras y los intervalos irregulares afectan la rutina de quienes dependen de TransMilenio para llegar al trabajo o al estudio, sobre todo si viven lejos y tienen pocas alternativas de transporte. Con los datos abiertos buscamos aportar evidencia para decidir dónde revisar primero el servicio.
 
 ## Preguntas del proyecto
 
-> **Pregunta principal.** ¿En qué estaciones y horas se registran más entradas frente a los buses que deberían pasar según el horario, y cómo cambia esto entre horas pico y horas de menor afluencia?
+> **Pregunta principal.** ¿En qué estaciones y horas se registran más entradas frente a los pasos de bus programados, y cómo cambia esa relación entre el pico de la mañana, el pico de la tarde, las horas de menor afluencia y los días hábiles o de fin de semana?
 
 > **Pregunta de contexto.** ¿Qué características sociales y de movilidad tienen las localidades donde se ubican esas estaciones?
 
-Para la primera pregunta contamos todas las entradas registradas, cualquiera que sea el motivo del viaje. Con «buses que deberían pasar» nos referimos a los pasos programados en el GTFS. Para el análisis actual usamos rangos **provisionales** de pico y valle y asignamos cada registro según la hora; el equipo aún debe confirmar esos rangos.
+Para la primera pregunta contamos las entradas registradas sin restringirlas por motivo del viaje. Las franjas adoptadas para este análisis son **pico de la mañana 06:00–08:59**, **valle 09:00–15:59** y **pico de la tarde 16:00–18:59**; las otras horas quedan aparte. Son franjas de trabajo, no una clasificación oficial de TransMilenio. Separamos días hábiles y fin de semana. Un «paso programado» es una llegada prevista en el GTFS a una estación, no un bus observado por GPS.
 
-Para la segunda usamos la [Encuesta Multipropósito 2021](https://datosabiertos.bogota.gov.co/dataset/encuesta-multiproposito-2021-sdp) como contexto de las localidades. Nos interesan los ingresos, las condiciones de los hogares y la movilidad. Si presentamos desplazamientos al trabajo y al estudio, mostramos cada grupo por separado y dejamos claros la población, los pesos y el denominador. Las cifras de la encuesta describen a los residentes de las localidades.
+Para la segunda usamos la [Encuesta Multipropósito 2021](https://datosabiertos.bogota.gov.co/dataset/encuesta-multiproposito-2021-sdp) como contexto de las localidades. Los cuadros expandidos del DANE aportan indicadores de capacidad de los hogares para cubrir gastos y tiempos de viaje al trabajo y al estudio, cada uno con su propio universo y denominador. Describen a residentes de **2021**, no a quienes ingresaron por una estación en **2026**.
 
-Verificamos la unión por localidad. En el análisis corregido se propusieron pico 06:00–08:59 y 16:00–18:59, valle 09:00–15:59 y otras horas; el equipo debe confirmar estos rangos. La relación `entradas / pasos programados` no mide ocupación ni puntualidad. El piloto de tiempo real sigue por separado. Las descargas y huellas constan en [el registro](docs/registro_descargas.md).
+La relación `entradas comparables / pasos programados comparables` no mide ocupación ni puntualidad. El piloto de posiciones en tiempo real es otra fuente y **no** se mezcla con este indicador, porque aún no está verificado el emparejamiento de cada vehículo con su viaje programado. Las descargas y huellas constan en [el registro](docs/registro_descargas.md).
 
 ### Preguntas de la propuesta inicial
 
@@ -48,9 +48,9 @@ En la propuesta también nos preguntamos lo siguiente.
 
 ### Historia del cambio de alcance
 
-La pregunta anterior pertenece a la propuesta original. En el primer examen todavía no había un histórico verificado de paso real de buses ni una correspondencia completa entre los `trip_id` de posiciones y del GTFS. Después se inició un piloto de recolección; su cobertura y calidad aún deben comprobarse. Por eso el equipo trabaja primero con entradas observadas y oferta **programada**, no con un supuesto indicador de confiabilidad real.
+La pregunta anterior pertenece a la propuesta original. En la primera exploración todavía no había un histórico verificado de paso real de buses ni una correspondencia completa entre los `trip_id` de posiciones y del GTFS. Después se inició un piloto de recolección; su cobertura y calidad aún deben comprobarse. Por eso el equipo trabaja con entradas observadas y oferta **programada**, no con un supuesto indicador de confiabilidad real.
 
-La primera comparación funcional usa GTFS estático diario, validaciones por estación y hora, correspondencia estación-localidad y agregados sociodemográficos por localidad. Es una señal descriptiva de oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [notebook inicial](notebooks/01_exploracion_oferta_programada.ipynb) explora rutas y viajes; el [documento del tablero](docs/tablero_powerbi_2026-11-24.md) explica el borrador. Para abrirlo en otro equipo, usa la [guía de traslado](docs/abrir_tablero_en_otro_equipo.md).
+La comparación vigente usa GTFS estático diario, validaciones por estación y hora, correspondencia estación-localidad y agregados sociodemográficos por localidad. Es una señal descriptiva de oferta **programada**, no una medida de puntualidad, ocupación real o discriminación. El [notebook inicial](notebooks/01_exploracion_oferta_programada.ipynb) explora rutas y viajes; el [documento del tablero del 24/11](docs/tablero_powerbi_2026-11-24.md) registra una versión histórica. Para abrir el tablero vigente en otro equipo, usa la [guía de traslado](docs/abrir_tablero_en_otro_equipo.md).
 
 Las descargas locales y sus huellas se documentan en [el registro de descargas](docs/registro_descargas.md). Los archivos diarios y las capturas `.pb` no se publican en este repositorio.
 
@@ -58,13 +58,13 @@ Las descargas locales y sus huellas se documentan en [el registro de descargas](
 
 | Fuente | Qué aporta | Unión usada | Límite |
 |---|---|---|---|
-| [Validaciones troncales de TransMilenio](https://validaciones.datosabiertos.transmilenio.gov.co/ValidacionTroncal.html) | Entradas registradas | Fecha, estación y hora | El cruce verificado cubre del 18 al 23 de noviembre de 2026. |
-| GTFS estático de TransMilenio | **Qué debía pasar:** rutas, paradas con coordenadas y frecuencias programadas | Ruta, viaje y parada | Puede no recoger cambios recientes por obras. |
-| Encuesta Multipropósito 2021 de la Secretaría Distrital de Planeación y límites de localidades | Ingresos, condiciones de los hogares y movilidad | Estaciones asignadas a localidad para agregar contexto territorial | La encuesta es de 2021 y describe a los residentes de las localidades. |
+| [Validaciones troncales de TransMilenio](https://validaciones.datosabiertos.transmilenio.gov.co/ValidacionTroncal.html) | Entradas registradas | Fecha, estación y hora | Una validación no equivale a una persona única. El análisis vigente cubre 19–23/11/2026. |
+| GTFS estático diario de TransMilenio | Pasos de bus **programados**, rutas y paradas con coordenadas | Misma fecha, estación y hora que las validaciones | La programación no demuestra que el bus haya pasado realmente. |
+| [Encuesta Multipropósito 2021](https://datosabiertos.bogota.gov.co/dataset/encuesta-multiproposito-2021-sdp) y [límites de localidades](https://datosabiertos.bogota.gov.co/dataset/localidad-bogota-d-c) | Contexto social y de movilidad de residentes | Localidad de la estación | La encuesta es de 2021 y no describe a quienes validaron en 2026. |
 
 Conservamos las capturas GTFS-Realtime del piloto en Drive. Describimos las fuentes y sus límites en [docs/fuentes.md](docs/fuentes.md).
 
-Los originales están fuera de Git. La [auditoría de cobertura](docs/auditoria_cobertura_estaciones_2026-11-24.md) explica las estaciones sin localidad y las entradas sin paso comparable. La tabla usada por el tablero se recalculó con el CSV corregido del 18 aportado por Alejandro; **todavía no podemos reproducir exactamente sus pasos desde un ZIP GTFS y una regla documentados**. De 151 estaciones de la tabla integrada, 133 tienen localidad; el mapa territorial muestra 18 localidades, no toda la red.
+Los originales están fuera de Git. El **18/11 se excluyó** del análisis vigente: existe un ZIP GTFS, pero su conteo de pasos no reproduce el CSV corregido utilizado en una versión anterior. No lo tratamos como un día sin datos ni mezclamos sus cifras con el corte actual. El **24/11 tampoco se incluye** porque no se incorporaron validaciones oficiales comparables de esa fecha. La [auditoría de datos](docs/auditoria_datos_tablero_2026-11-25.md), la [auditoría de cobertura de estaciones](docs/auditoria_cobertura_estaciones_2026-11-24.md) y las [fuentes territoriales](docs/fuentes_socioeconomicas.md) documentan estas decisiones y límites. Algunos documentos fechados el 24/11 describen el corte histórico **18–23**; para las cifras vigentes debe consultarse [resultados](docs/resultados.md).
 
 ## Indicadores del tablero actual y límites
 
@@ -76,7 +76,7 @@ Los originales están fuera de Git. La [auditoría de cobertura](docs/auditoria_
 | Cobertura de comparación | Proporción de validaciones que cuentan con paso programado emparejado; varía por fecha y estación. |
 | Contexto territorial | Indicadores de residentes de la localidad donde se ubica la estación, no perfil de pasajeros. |
 
-Cumplimiento real, regularidad, efecto racimo y velocidad son preguntas de la **propuesta original**, pendientes de un histórico de posiciones y un emparejamiento verificado con los viajes. No aparecen como hechos calculados en el tablero actual. [Propuesta original; `docs/tablero_powerbi_2026-11-24.md`]
+Cumplimiento real, regularidad, efecto racimo y velocidad son preguntas de la **propuesta original**, pendientes de un histórico de posiciones y un emparejamiento verificado con los viajes. No aparecen como hechos calculados en el tablero actual. [Propuesta original; `docs/resultados.md`]
 
 ## Metodología
 
@@ -90,65 +90,43 @@ Cumplimiento real, regularidad, efecto racimo y velocidad son preguntas de la **
 
 Agrupamos los registros por fecha, estación y hora. Para calcular el indicador usamos las filas en las que encontramos la estación en el GTFS y había pasos programados. Si agrupamos varias estaciones u horas, dividimos el total de validaciones comparables por el total de pasos programados de esas mismas filas.
 
-Del **18 al 23 de noviembre de 2026** pudimos cruzar **8.065.892 de 9.205.097 validaciones (87,62 %)**. Ubicamos **128 de las 132 estaciones comparables** dentro de Bogotá y cruzamos esas localidades con los indicadores de la Encuesta Multipropósito 2021. Para el **24 de noviembre** tenemos los pasos programados, pero no validaciones oficiales incorporadas; no lo mezclamos con los seis días comparables.
+Del **19 al 23 de noviembre de 2026** registramos **7.252.722 entradas**. De ellas, **6.353.794** tienen al menos un paso programado en la misma estación, fecha y hora: una cobertura del **87,61 %**. En esas filas comparables hubo **1.063.752 pasos programados**, de modo que la razón total fue **5,97 entradas por paso programado**. Los registros sin paso comparable no se interpretan como cero buses. El archivo incluye **151 estaciones**: 135 con coordenadas y 133 con localidad asignada. Un punto ausente del mapa no significa demanda nula.
 
-Para generar un cruce local, guardamos los dos ZIP de cada fecha en `registros_diarios/AAAA-MM-DD/`, al lado del repositorio. Con las dependencias instaladas, ejecutamos este comando en PowerShell desde la raíz del proyecto. El ejemplo usa los archivos del 18 y guarda el resultado en `datos/procesados/`. **Advertencia:** con el ZIP inventariado del 18 esta salida no reproduce el denominador corregido que usa el tablero; los detalles están en [resultados](docs/resultados.md).
+Para generar los cruces diarios, guardamos los ZIP oficiales de cada fecha en `registros_diarios/AAAA-MM-DD/`, al lado del repositorio. Con las dependencias de `requirements.txt` instaladas, ejecutamos este comando en PowerShell desde la raíz del proyecto. El 18 queda fuera porque su denominador sigue sin conciliarse; los detalles están en [resultados](docs/resultados.md).
 
 ```powershell
-py .\src\comparar_validaciones_gtfs.py 2026-11-18
+19..23 | ForEach-Object { py .\src\comparar_validaciones_gtfs.py "2026-11-$_" }
 ```
 
 ### Resultados del análisis
 
-- Entre semana obtuvimos **8,13 validaciones por paso programado** en las franjas de pico propuestas y **6,28** en valle.
-- En ese pico entre semana, **Portal 20 de Julio** registró **81.894 validaciones y 2.357 pasos programados** en las filas comparables, una relación de **34,75**. Es un punto para revisar con observaciones de campo.
-- Usamos el contexto de la Encuesta Multipropósito 2021 para comparar las localidades por separado. La encuesta describe a los residentes y el cruce operativo cuenta entradas de estaciones.
+- En los **tres días hábiles**, la razón entradas/pasos comparables fue **8,14** en el pico de la mañana, **7,66** en el de la tarde y **6,20** en valle. Los dos picos juntos dieron **7,91**.
+- En los **dos días de fin de semana** fue **5,70** en la mañana, **5,54** en la tarde y **5,78** en valle. La diferencia no reprodujo el patrón de los días hábiles.
+- Por volumen total de entradas destacaron **Portal Norte (283.353)**, **Portal Américas (268.751)** y **Portal Suba (225.693)**. Volumen alto no equivale automáticamente a saturación.
+- El contexto social se compara **por localidad**, como descripción de residentes de 2021. No identifica la residencia ni el nivel socioeconómico de los pasajeros de una estación.
 
-En [resultados y reproducción](docs/resultados.md) dejamos las franjas, las fuentes, el comando de integración y el recorrido sugerido para la demostración. Los [resúmenes agregados](datos/analisis/) permiten revisar las cifras.
+En [resultados y reproducción](docs/resultados.md) dejamos las franjas, las fuentes y los cálculos. Los [resúmenes agregados](datos/analisis/) permiten revisar las cifras; el [análisis de gráficos](docs/analisis_graficos_19_23_2026.docx) desarrolla las interpretaciones con sus límites.
 
 ## Entregables y estado
 
 | Entregable | Contenido |
 |---|---|
 | **Repositorio público** | Código, organización de carpetas, procedencia y límites conocidos de reproducción y licencia de cada fuente. |
-| **Dashboard operativo** | Pregunta, indicadores, comparaciones, hallazgos y al menos una limitación importante. Debe alimentarse de datos integrados y estar accesible durante la sustentación. |
-| **Presentación ejecutiva (máximo 10 minutos)** | Problema, relevancia, pregunta, fuentes, integración, preparación, demostración del dashboard, hallazgos, conclusiones y recomendaciones. |
-| **Sustentación** | Explicar de dónde salen los datos, cómo se unieron y qué decisiones de limpieza se tomaron. La propuesta la sitúa en la primera clase de la última semana del semestre. |
+| **Dashboard** | [PBIX revisado del corte 19–23](docs/TransMilenio_19-23_manana_tarde_revisado.pbix), con indicadores, comparación por franjas y mapas. Para actualizarlo en otro equipo hacen falta los CSV derivados y seguir la [guía de apertura](docs/abrir_tablero_en_otro_equipo.md). |
+| **Presentación ejecutiva** | [Archivo de trabajo](docs/BORRADOR%20%C2%B7%20Proyecto%202%20TransMilenio%20%C2%B7%2019%E2%80%9323%20nov.%202026.pptx) con problema, fuentes, hallazgos y límites. Su nombre conserva la etiqueta «BORRADOR». |
+| **Documentación adicional** | [Análisis de gráficos](docs/analisis_graficos_19_23_2026.docx), [consideraciones éticas](docs/Consideraciones_eticas_Proyecto_2_TransMilenio.docx), [resultados](docs/resultados.md) y [bitácora de limpieza](docs/bitacora_limpieza.md). |
 
-La actividad **Group 7: Proyecto 2** cerró el **24/11/2026 a las 23:59**. El historial de Bloque Neón registra el envío de Alejandro a las **23:58** (recibo **5080470**) con un ZIP y enlaces al repositorio, al PBIX y a la presentación. Ese comprobante acredita el envío, no la revisión o calificación del profesor. La copia posterior de nueve páginas está en Drive, pero **no formó parte de esa entrega oficial**. [Memoria académica: `src-bloque-neon-proyecto2-recibo-5080470-2026-11-24`]
-
-## Equipo y trabajo actual
-
-| Integrante | Aporte documentado |
-|---|---|
-| Chiudacchang Collazos | Recolección y cruce inicial; borrador de Power BI, auditoría y documentación. |
-| Alejandro Rojas | Base corregida del 18/11, integración de contexto territorial, resúmenes y documentación de resultados. |
-| Ambos | Exploración, implicaciones éticas, recomendaciones y presentación ejecutiva. |
-
-La tabla registra los aportes observados; no afirma que el proyecto esté terminado.
+La actividad **Group 7: Proyecto 2** cerró el **24/11/2026 a las 23:59**. El historial de Bloque Neón registra el envío de Alejandro a las **23:58** (recibo **5080470**) con un ZIP y enlaces al repositorio, al PBIX y a la presentación. Ese comprobante acredita el envío, no la revisión o calificación del profesor. Los documentos y el PBIX enlazados arriba se publicaron **después**; no sustituyen lo enviado a Bloque Neón.
 
 ## Criterios éticos y límites de interpretación
 
-- Si vemos pocas validaciones en una estación, revisamos la cobertura y la oferta antes de sacar conclusiones sobre la necesidad de servicio. Esa cifra por sí sola no basta para recomendar una reducción de la oferta.
+- La estación donde alguien valida puede estar cerca de su trabajo o estudio, no de su vivienda. No atribuimos a los pasajeros los ingresos o condiciones de los residentes de esa localidad.
+- Si vemos pocas validaciones en una estación, revisamos la cobertura y la oferta antes de sacar conclusiones sobre la necesidad de servicio. Esa cifra por sí sola no justifica reducir buses, porque podría perjudicar a personas que dependen del servicio.
 - Trabajamos con agregados por estación y hora para cuidar la privacidad de los registros y mantener el análisis centrado en el servicio.
-- Limitamos las conclusiones a las fechas y estaciones que pudimos comparar. Para hablar de puntualidad u ocupación necesitaríamos otros datos.
+- Limitamos las conclusiones a cinco días y a las estaciones que pudimos comparar. Para hablar de puntualidad u ocupación necesitaríamos datos adicionales y un emparejamiento validado de los vehículos.
 - Citamos las fuentes y registramos sus licencias en el repositorio.
 
-## Riesgos y alternativas
-
-| Riesgo | Plan B propuesto |
-|---|---|
-| Los históricos no tienen detalle por bus. | Calcular indicadores agregados por ruta y troncal con lo disponible. |
-| Las fuentes de operación real y GTFS usan identificadores distintos. | Intentar nombres normalizados de estaciones o coordenadas; validar la correspondencia. |
-| No es viable unir la fuente socioeconómica por UPZ. | Trabajar por localidad o estudiar la Encuesta de Movilidad 2023 como alternativa. |
-| La carga supera la capacidad de dos personas. | Completar primero el núcleo mínimo: tres fuentes integradas, indicadores principales y dashboard. |
-
-## Plan de trabajo
-
-1. Documentar con Alejandro el ZIP GTFS exacto y la regla que generaron los pasos del 18/11.
-2. Confirmar con el profesor el alcance descriptivo de la pregunta y con el equipo las franjas provisionales.
-3. Cerrar y verificar la copia local del tablero; mantener el 24/11 fuera de la comparación hasta contar con validaciones oficiales del mismo día.
-4. Revisar juntos los hallazgos del tablero antes de cerrar conclusiones y diapositivas.
+El [documento ético](docs/Consideraciones_eticas_Proyecto_2_TransMilenio.docx) desarrolla estos riesgos. Como pasos futuros, conviene ampliar el periodo, documentar la versión exacta del GTFS del 18 y validar el enlace entre posiciones GPS y viajes antes de estudiar cumplimiento real de horarios.
 
 ## Organización del repositorio
 
@@ -163,11 +141,13 @@ La tabla registra los aportes observados; no afirma que el proyecto esté termin
 │   └── analisis/             # Cuatro agregados pequeños del análisis corregido
 ├── notebooks/                # Exploración y análisis reproducible
 ├── src/                      # Funciones o scripts reutilizables
-├── outputs/                  # PBIX, paquetes y figuras locales, excluidos de Git
-├── reports/                  # Presentación y materiales de comunicación
+├── outputs/                  # Paquetes y figuras de trabajo locales, excluidos de Git
+├── reports/                  # Materiales de comunicación históricos
 └── docs/
     ├── fuentes.md            # Procedencia, cobertura, licencia y llaves
-    └── bitacora_limpieza.md  # Decisiones y efectos de preparación
+    ├── bitacora_limpieza.md  # Decisiones y efectos de preparación
+    ├── resultados.md         # Corte y cifras vigentes del 19–23
+    └── *.docx, *.pptx, *.pbix # Análisis, presentación y tablero publicados
 ```
 
 Separamos los datos crudos de los procesados y dejamos el código, los notebooks y la documentación en sus propias carpetas. Usamos `.gitkeep` para que Git conserve las carpetas vacías. Guardamos los originales tal como los descargamos y revisamos la licencia antes de publicar datos.
@@ -176,7 +156,7 @@ Separamos los datos crudos de los procesados y dejamos el código, los notebooks
 
 - Alcaldía de Bogotá (2026), «Datos abiertos en tiempo real: TransMilenio conecta la operación del sistema con la tecnología de Bogotá» (`bogota.gov.co`).
 - Datos Abiertos Bogotá, sección TransMilenio (`datosabiertos.bogota.gov.co/organization/transmilenio`).
-- TransMilenio S. A., «GTFS Estáticos 2025-11-25» (`datosabiertos-transmilenio.hub.arcgis.com`).
+- TransMilenio S. A., GTFS estáticos diarios (`datosabiertos-transmilenio.hub.arcgis.com`).
 - Secretaría Distrital de Planeación, Encuesta Multipropósito 2021 (`datosabiertos.bogota.gov.co`).
 - Datos Abiertos Bogotá, límites de Unidades de Planeamiento Zonal (`datosabiertos.bogota.gov.co`).
 - Universidad de los Andes (2026), «Proyecto 2: Profundización e Impacto», DATA-1002.
